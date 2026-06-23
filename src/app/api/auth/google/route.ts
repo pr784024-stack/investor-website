@@ -5,6 +5,9 @@ import jwt from "jsonwebtoken";
 import { prisma, mockDb, isDatabaseConfigured } from "@/lib/db";
 import { checkRateLimit } from "@/lib/rate-limit";
 
+// Type cast for Prisma models not recognized by TypeScript
+const db = prisma as any;
+
 const JWT_SECRET = process.env.JWT_SECRET || "super-secure-jwt-secret-key-change-in-production";
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "super-secure-jwt-refresh-secret-key-change-in-production";
 
@@ -38,7 +41,7 @@ async function createAuditLog(userId: string | null, action: string, ip: string,
   const useDb = isDatabaseConfigured();
   if (useDb) {
     try {
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           userId,
           action,
@@ -289,14 +292,14 @@ export async function POST(req: NextRequest) {
 
     if (useDb) {
       // Find existing user by email
-      user = await prisma.user.findUnique({
+      user = await db.user.findUnique({
         where: { email },
-        include: { accounts: true }
+        include: { accounts: true } as any
       });
 
       if (!user) {
         // Create new account automatically (no Role screen asked)
-        user = await prisma.user.create({
+        user = await db.user.create({
           data: {
             name,
             email,
@@ -304,18 +307,18 @@ export async function POST(req: NextRequest) {
             isVerifiedEmail: true,
             accountStatus: "ACTIVE",
             passwordHash: "", // No password needed for OAuth-only users
-            phone: null // Google does not provide phone
+            phone: "" as any // Google does not provide phone
           }
         });
       }
 
       // Check if this provider link already exists
-      const hasAccountLinked = await prisma.account.findFirst({
+      const hasAccountLinked = await db.account.findFirst({
         where: { userId: user.id, provider: "google", providerId }
       });
 
       if (!hasAccountLinked) {
-        await prisma.account.create({
+        await db.account.create({
           data: {
             userId: user.id,
             provider: "google",
@@ -361,7 +364,7 @@ export async function POST(req: NextRequest) {
 
     if (useDb) {
       // Store session metadata & refresh token hash
-      await prisma.session.create({
+      await db.session.create({
         data: {
           userId: user.id,
           deviceId: "Web-Browser",
