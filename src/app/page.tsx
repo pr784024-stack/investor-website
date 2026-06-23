@@ -1329,7 +1329,10 @@ export default function Home() {
         <button
           className="chatbot-toggle-btn"
           onClick={() => setIsChatOpen(!isChatOpen)}
+          onTouchStart={() => setIsChatOpen(!isChatOpen)}
+          onTouchEnd={(e) => e.preventDefault()}
           aria-label="Toggle Chatbot"
+          type="button"
         >
           {isChatOpen ? "✕" : "💬"}
         </button>
