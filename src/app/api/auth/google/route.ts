@@ -96,38 +96,139 @@ export async function GET(req: NextRequest) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Google Authentication (Testing Mode)</title>
-      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          background: #0B1F3A;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+        .container {
+          max-width: 28rem;
+          width: 100%;
+          margin: 0 1rem;
+          background: #112240;
+          border: 1px solid #374151;
+          border-radius: 1rem;
+          padding: 2rem;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+        .icon-box {
+          display: inline-flex;
+          height: 3rem;
+          width: 3rem;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0.75rem;
+          background: #00B386;
+          margin-bottom: 0.75rem;
+        }
+        .icon-box svg {
+          height: 1.5rem;
+          width: 1.5rem;
+          color: white;
+        }
+        h2 {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: white;
+        }
+        .subtitle {
+          font-size: 0.75rem;
+          color: #9CA3AF;
+          margin-top: 0.25rem;
+        }
+        .accounts-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        .account-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: rgba(11, 31, 58, 0.6);
+          border: 1px solid #4B5563;
+          border-radius: 0.75rem;
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          color: white;
+          text-align: left;
+          font-size: 0.875rem;
+        }
+        .account-btn:hover {
+          border-color: #00B386;
+          background: rgba(0, 179, 134, 0.1);
+        }
+        .avatar {
+          height: 2rem;
+          width: 2rem;
+          border-radius: 9999px;
+          background: #4B5563;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.75rem;
+          font-weight: 700;
+          font-family: monospace;
+          flex-shrink: 0;
+        }
+        .account-info div:first-child {
+          font-size: 0.75rem;
+          font-weight: 700;
+        }
+        .account-info div:last-child {
+          font-size: 0.625rem;
+          color: #9CA3AF;
+        }
+        .footer-text {
+          font-size: 0.5625rem;
+          color: #6B7280;
+          margin-top: 1.5rem;
+          text-align: center;
+          line-height: 1.5;
+        }
+      </style>
     </head>
-    <body class="bg-[#0B1F3A] min-h-screen flex items-center justify-center font-sans text-white">
-      <div class="max-w-md w-full mx-4 bg-[#112240] border border-gray-800 rounded-2xl p-8 shadow-2xl">
-        <div class="text-center mb-6">
-          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#00B386] mb-3">
-            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="icon-box">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h2 class="text-xl font-bold text-white">Google OAuth testing screen</h2>
-          <p class="text-xs text-gray-400 mt-1">Select a verified Google Developer Test account</p>
+          <h2>Google OAuth testing screen</h2>
+          <p class="subtitle">Select a verified Google Developer Test account</p>
         </div>
 
-        <div class="space-y-3">
+        <div class="accounts-list">
           ${DEMO_ACCOUNTS.map(acc => `
-            <button 
-              onclick="authenticate('${acc.email}', '${acc.providerId}', '${acc.name}')" 
-              class="w-full flex items-center gap-3 bg-[#0B1F3A]/60 border border-gray-700 hover:border-[#00B386] hover:bg-[#00B386]/10 px-4 py-3 rounded-xl transition-all cursor-pointer text-left"
-            >
-              <div class="h-8 w-8 rounded-full bg-gray-600 flex items-center justify-center text-xs font-bold font-mono">
-                ${acc.name[0]}
-              </div>
-              <div>
-                <div class="text-xs font-bold">${acc.name}</div>
-                <div class="text-[10px] text-gray-400">${acc.email}</div>
+            <button class="account-btn" onclick="authenticate('${acc.email}', '${acc.providerId}', '${acc.name}')">
+              <div class="avatar">${acc.name[0]}</div>
+              <div class="account-info">
+                <div>${acc.name}</div>
+                <div>${acc.email}</div>
               </div>
             </button>
           `).join("")}
         </div>
 
-        <p class="text-[9px] text-gray-500 mt-6 text-center leading-normal">
+        <p class="footer-text">
           This simulated console bypasses direct cloud endpoints and routes directly into the authenticated session dashboard setup.
         </p>
       </div>
