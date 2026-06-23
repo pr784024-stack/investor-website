@@ -276,8 +276,16 @@
       "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
       "otpHash": "$2b$10$tzE1fTpDhd0tABj9bcplBum5.V9Zt7zaQypv2yOZUB2Vlp19b8Zr2",
       "expiresAt": "2026-06-23T08:12:00.014Z",
-      "used": false,
+      "used": true,
       "createdAt": "2026-06-23T08:07:00.093Z"
+    },
+    {
+      "id": "80618d4c-f1e4-48bf-a74d-5092b8db6c93",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$R6hlwtEF6tpkvR2EH5e3xOzVhaCynHZzsonA.8UABwShiVvECZhBm",
+      "expiresAt": "2026-06-23T08:16:23.903Z",
+      "used": false,
+      "createdAt": "2026-06-23T08:11:24.037Z"
     }
   ],
   "passwordResetTokens": [

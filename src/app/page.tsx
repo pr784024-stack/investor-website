@@ -856,23 +856,31 @@ export default function Home() {
             position: fixed;
             right: 25px;
             bottom: 25px;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: #0B1F3A;
             color: #C9A84C;
-            border: 1px solid #C9A84C;
+            border: 2px solid #C9A84C;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 28px;
             box-shadow: 0 4px 16px rgba(11,31,58,0.25);
             z-index: 1000;
-            transition: transform 0.2s;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
           }
           .chatbot-toggle-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(11,31,58,0.35);
+          }
+          .chatbot-toggle-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(11,31,58,0.2);
           }
           .chatbot-panel {
             position: fixed;
@@ -1183,36 +1191,61 @@ export default function Home() {
           }
           .chatbot-panel .lform input, .chatbot-panel .lform select {
             width: 100%;
-            padding: 10px 12px;
+            padding: 14px 12px;
             border: 1.5px solid rgba(201,168,76,0.3);
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 13px;
             font-family: 'Inter', sans-serif;
             color: #0B1F3A;
             background: #fff;
             outline: none;
-            margin-bottom: 8px;
-            transition: border-color 0.2s;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            min-height: 44px;
+          }
+          .chatbot-panel .lform select {
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%230B1F3A" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 24px;
+            padding-right: 36px;
+          }
+          .chatbot-panel .lform input:active, .chatbot-panel .lform select:active {
+            border-color: #C9A84C;
+            background-color: #fafbfc;
           }
           .chatbot-panel .lform input:focus, .chatbot-panel .lform select:focus {
             border-color: #C9A84C;
+            background-color: #fafbfc;
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
           }
           .chatbot-panel .lfbtn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: #0B1F3A;
             color: #C9A84C;
-            border: none;
+            border: 1.5px solid #C9A84C;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             font-family: 'Syne', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.2s ease-in-out;
             position: relative;
+            min-height: 44px;
+            user-select: none;
+            -webkit-user-select: none;
           }
           .chatbot-panel .lfbtn:hover {
             background: #132d52;
+            box-shadow: 0 4px 12px rgba(11,31,58,0.2);
+          }
+          .chatbot-panel .lfbtn:active {
+            transform: scale(0.98);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
           }
           .chatbot-panel .lfbtn:disabled {
             opacity: 0.6;
@@ -1329,8 +1362,6 @@ export default function Home() {
         <button
           className="chatbot-toggle-btn"
           onClick={() => setIsChatOpen(!isChatOpen)}
-          onTouchStart={() => setIsChatOpen(!isChatOpen)}
-          onTouchEnd={(e) => e.preventDefault()}
           aria-label="Toggle Chatbot"
           type="button"
         >
