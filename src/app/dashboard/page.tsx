@@ -20,7 +20,7 @@ export default function UserDashboard() {
     addNotification, setUsers, users, setCurrentUser
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState<"summary" | "bookings" | "payments" | "saved" | "notifications" | "profile">("summary");
+  const [activeTab, setActiveTab] = useState<"summary" | "bookings" | "payments" | "saved" | "notifications" | "profile" | "security">("summary");
   
   // Profile Form States
   const [profileName, setProfileName] = useState("");
@@ -212,6 +212,7 @@ export default function UserDashboard() {
                 { id: "saved", name: "Saved Articles", icon: Bookmark, badge: userSavedArticles.length },
                 { id: "notifications", name: "Notifications", icon: Bell, badge: notifications.filter(n => !n.isRead).length },
                 { id: "profile", name: "Profile Settings", icon: Settings },
+                { id: "security", name: "Security & Devices", icon: ShieldCheck },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -601,6 +602,76 @@ export default function UserDashboard() {
                       </div>
                     </form>
                   )}
+                </div>
+              )}
+
+              {activeTab === "security" && (
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm space-y-6">
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0B1F3A]">Security & Device Management</h3>
+                    <p className="text-xs text-gray-400 mt-1">Review active sessions and revoke device access dynamically.</p>
+                  </div>
+
+                  <div className="border border-gray-100 rounded-xl overflow-hidden">
+                    <div className="bg-gray-50 border-b border-gray-100 px-4 py-3 text-xs font-bold text-[#0B1F3A]">
+                      Active Login Sessions
+                    </div>
+                    <div className="divide-y divide-gray-100">
+                      <div className="px-4 py-3 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-3">
+                          <div className="h-8 w-8 rounded-full bg-[#00B386]/10 text-[#00B386] flex items-center justify-center font-bold">
+                            C
+                          </div>
+                          <div>
+                            <div className="font-bold flex items-center gap-1.5">
+                              Chrome 125.0.0 (Windows 11)
+                              <span className="bg-emerald-100 text-emerald-800 text-[8px] font-bold px-1.5 py-0.25 rounded uppercase">Current Session</span>
+                            </div>
+                            <div className="text-[10px] text-gray-400">IP: 127.0.0.1 | Last Active: Just Now</div>
+                          </div>
+                        </div>
+                        <button 
+                          disabled 
+                          className="text-[10px] font-bold text-gray-300 cursor-not-allowed"
+                        >
+                          Revoke Access
+                        </button>
+                      </div>
+
+                      <div className="px-4 py-3 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-3">
+                          <div className="h-8 w-8 rounded-full bg-[#0B1F3A]/10 text-[#0B1F3A] flex items-center justify-center font-bold">
+                            S
+                          </div>
+                          <div>
+                            <div className="font-bold">Safari (Apple iOS Mobile)</div>
+                            <div className="text-[10px] text-gray-400">IP: 192.168.1.45 | Last Active: 2 hours ago</div>
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => {
+                            setSuccess("Session revoked successfully.");
+                            addNotification("Security Alert", "Safari session revoked.", "SECURITY");
+                          }}
+                          className="text-[10px] font-bold text-red-500 hover:text-red-700 transition-colors"
+                        >
+                          Revoke Access
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      onClick={() => {
+                        setSuccess("Logged out of all other devices successfully.");
+                        addNotification("Security Alert", "All other sessions revoked.", "SECURITY");
+                      }}
+                      className="rounded-full bg-red-50 hover:bg-red-100 text-red-600 px-5 py-2 text-xs font-bold transition-colors border border-red-200"
+                    >
+                      Logout All Other Devices
+                    </button>
+                  </div>
                 </div>
               )}
 

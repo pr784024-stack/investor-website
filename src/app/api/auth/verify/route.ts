@@ -222,7 +222,7 @@ export async function POST(req: NextRequest) {
         }
         if (isSmsLive) {
           await sendSms({
-            phone: user.phone,
+            phone: user.phone || "",
             message: `Your InvestorBridge verification OTP is: ${smsOtpValue}. Expiry 5 mins.`
           });
         }

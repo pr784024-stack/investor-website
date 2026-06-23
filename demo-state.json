@@ -44,6 +44,39 @@
       "isVerifiedEmail": true,
       "isVerifiedPhone": true,
       "createdAt": "2026-06-22T18:00:07.136Z"
+    },
+    {
+      "id": "b759a2d3-28f4-4fc2-aef8-317a24ae8a6c",
+      "name": "Demo Account One",
+      "email": "demo1@gmail.com",
+      "phone": null,
+      "role": "USER",
+      "mfaEnabled": false,
+      "isVerifiedEmail": true,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-23T18:46:38.317Z"
+    },
+    {
+      "id": "801aac73-0434-441c-816c-ff6431cd65d9",
+      "name": "Demo Account Two",
+      "email": "demo2@gmail.com",
+      "phone": null,
+      "role": "USER",
+      "mfaEnabled": false,
+      "isVerifiedEmail": true,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-23T18:51:10.437Z"
+    },
+    {
+      "id": "50dbdf05-c6ef-416e-9bee-5c5349124280",
+      "name": "Demo Account Three",
+      "email": "demo3@gmail.com",
+      "phone": null,
+      "role": "USER",
+      "mfaEnabled": false,
+      "isVerifiedEmail": true,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-23T18:52:06.045Z"
     }
   ],
   "leads": [],

@@ -512,6 +512,7 @@ export default function AdminDashboard() {
                         <tr className="text-gray-400 uppercase text-[9px] font-bold tracking-wider">
                           <th className="py-3 px-4">Name</th>
                           <th className="py-3 px-4">Role</th>
+                          <th className="py-3 px-4">Provider</th>
                           <th className="py-3 px-4">Status</th>
                           <th className="py-3 px-4 text-right">Actions</th>
                         </tr>
@@ -519,25 +520,38 @@ export default function AdminDashboard() {
                       <tbody className="divide-y divide-gray-100">
                         {users
                           .filter(u => u.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                          .map((u) => (
+                          .map((u) => {
+                            // Determine provider: check if user has passwordHash or linked accounts
+                            const hasPassword = u.passwordHash && u.passwordHash.length > 0;
+                            const provider = hasPassword ? "Email" : "Google";
+                            const providerColor = provider === "Google" ? "bg-blue-100 text-blue-800" : "bg-purple-100 text-purple-800";
+                            
+                            return (
                             <tr key={u.id} className="hover:bg-gray-50">
                               <td className="py-3 px-4">
                                 <span className="font-bold text-[#0B1F3A] block">{u.name}</span>
-                                <span className="text-[10px] text-gray-400 block">{u.email} • {u.phone}</span>
+                                <span className="text-[10px] text-gray-400 block">{u.email} • {u.phone || "No phone"}</span>
                               </td>
                               <td className="py-3 px-4 font-semibold text-gray-600">{u.role}</td>
+                              <td className="py-3 px-4">
+                                <span className={`${providerColor} text-[8px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider`}>
+                                  {provider}
+                                </span>
+                              </td>
                               <td className="py-3 px-4">
                                 <span className="bg-green-100 text-green-800 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
                                   Active
                                 </span>
                               </td>
                               <td className="py-3 px-4 text-right space-x-2">
-                                <button
-                                  onClick={() => handleResetPassword(u.email)}
-                                  className="text-[9px] font-bold border border-gray-200 rounded px-2 py-1 text-gray-500 hover:bg-gray-50"
-                                >
-                                  Reset Pass
-                                </button>
+                                {provider === "Email" && (
+                                  <button
+                                    onClick={() => handleResetPassword(u.email)}
+                                    className="text-[9px] font-bold border border-gray-200 rounded px-2 py-1 text-gray-500 hover:bg-gray-50"
+                                  >
+                                    Reset Pass
+                                  </button>
+                                )}
                                 <button
                                   onClick={() => handleToggleUserBlock(u.id, true)}
                                   className="text-[9px] font-bold bg-red-50 text-red-600 rounded px-2 py-1 hover:bg-red-100"
@@ -552,7 +566,8 @@ export default function AdminDashboard() {
                                 </button>
                               </td>
                             </tr>
-                          ))}
+                            );
+                          })}
                       </tbody>
                     </table>
                   </div>

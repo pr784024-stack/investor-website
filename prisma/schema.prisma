@@ -45,8 +45,8 @@ model User {
   id                  String               @id @default(uuid())
   name                String
   email               String               @unique
-  phone               String               @unique
-  passwordHash        String
+  phone               String?              @unique
+  passwordHash        String?
   role                Role                 @default(USER)
   isVerifiedEmail     Boolean              @default(false)
   isVerifiedPhone     Boolean              @default(false)
@@ -56,6 +56,14 @@ model User {
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   
+  // Google Sign-In properties
+  image               String?
+  emailVerified       Boolean              @default(false)
+  accountStatus       String               @default("ACTIVE")
+  lastLoginAt         DateTime?
+  lastLoginIP         String?
+  accountLockedUntil  DateTime?
+
   bookings            Booking[]
   payments            Payment[]
   notifications       Notification[]
@@ -64,6 +72,9 @@ model User {
   smsOtps             SmsOtp[]
   mfaOtps             MfaOtp[]
   passwordResetTokens PasswordResetToken[]
+  accounts            Account[]
+  sessions            Session[]
+  auditLogs           AuditLog[]
 }
 
 model Lead {
@@ -254,4 +265,39 @@ model RateLimitLog {
   createdAt DateTime @default(now())
   @@index([key, createdAt])
 }
+
+model Account {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  provider      String
+  providerId    String
+  providerEmail String?
+  createdAt     DateTime @default(now())
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  deviceId         String
+  ipAddress        String
+  userAgent        String
+  refreshTokenHash String
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  lastUsedAt       DateTime @default(now())
+  expiresAt        DateTime
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
 

@@ -9,9 +9,9 @@ interface User {
   id: string;
   email: string;
   name: string;
-  phone?: string;
+  phone?: string | null;
   role: "ADMIN" | "USER";
-  passwordHash: string;
+  passwordHash: string | null;
 }
 
 interface RateLimitLog {

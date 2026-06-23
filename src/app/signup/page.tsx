@@ -411,7 +411,7 @@ export default function SignUp() {
                   className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#00B386] focus:ring-[#00B386]"
                 />
                 <label htmlFor="agree-terms" className="text-[10px] text-gray-500 leading-tight">
-                  I agree to InvestorBridge Solutions' <Link href="#" className="text-[#00B386] hover:underline font-bold">Terms of Service</Link> & <Link href="#" className="text-[#00B386] hover:underline font-bold">Privacy Policy</Link>.
+                  I agree to InvestorBridge Solutions' <Link href="/terms-and-conditions" className="text-[#00B386] hover:underline font-bold">Terms & Conditions</Link> & <Link href="/privacy-policy" className="text-[#00B386] hover:underline font-bold">Privacy Policy</Link>.
                 </label>
               </div>
 
@@ -420,6 +420,30 @@ export default function SignUp() {
                 className="w-full rounded-full bg-[#00B386] hover:bg-[#0B1F3A] text-white py-2.5 text-xs font-bold transition-colors mt-4 flex items-center justify-center gap-1"
               >
                 Proceed to Verification <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+
+              <div className="relative mt-6">
+                <div className="flex items-center justify-center">
+                  <span className="bg-white px-2 text-gray-400 font-medium text-xs">OR</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  window.location.href = "/api/auth/google";
+                }}
+                className="w-full flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 py-2.5 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="matrix(1, 0, 0, 1, 0, 0)">
+                    <path d="M21.35,11.1H12v2.7h5.38c-0.24,1.28 -0.96,2.37 -2.04,3.1v2.6h3.29c1.92,-1.78 3.02,-4.4 3.02,-7.4C21.65,11.83 21.54,11.41 21.35,11.1z" fill="#4285F4" />
+                    <path d="M12,20.5c2.57,0 4.71,-0.85 6.29,-2.3l-3.29,-2.6c-0.91,0.61 -2.08,0.98 -3.0,0.98 -2.31,0 -4.26,-1.56 -4.96,-3.66H3.63v2.7C5.2,18.77 8.38,20.5 12,20.5z" fill="#34A853" />
+                    <path d="M7.04,12.92C6.86,12.38 6.77,11.8 6.77,11.2c0,-0.6 0.09,-1.18 0.27,-1.72V6.78H3.63C3.01,8.02 2.66,9.57 2.66,11.2c0,1.63 0.35,3.18 0.97,4.42L7.04,12.92z" fill="#FBBC05" />
+                    <path d="M12,5.92c1.39,0 2.65,0.48 3.63,1.42L17.7,5.3C16.29,3.99 14.28,3.2 12,3.2 8.38,3.2 5.2,4.93 3.63,8.08L7.04,10.8C7.74,8.7 9.69,7.14 12,7.14c0,0 0,0 0,0C12,5.92 12,5.92 12,5.92z" fill="#EA4335" />
+                  </g>
+                </svg>
+                Continue with Google
               </button>
             </form>
           ) : (
