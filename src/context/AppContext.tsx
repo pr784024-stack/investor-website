@@ -12,6 +12,8 @@ export interface User {
   isVerifiedEmail: boolean;
   isVerifiedPhone: boolean;
   createdAt: string;
+  passwordHash?: string;
+  provider?: "EMAIL" | "GOOGLE";
 }
 
 export interface Booking {
