@@ -77,6 +77,17 @@
       "isVerifiedEmail": true,
       "isVerifiedPhone": false,
       "createdAt": "2026-06-23T18:52:06.045Z"
+    },
+    {
+      "id": "f6eb977e-170e-4da2-b9a2-a2a521f70aef",
+      "name": "Kavita Godara",
+      "email": "kavita64694@gmail.com",
+      "phone": "8290142141",
+      "passwordHash": "$2b$12$qL4wLH0nTGGo9nbVXhek7.Fld1rc9uOSkKsvMSP8XcLffyIKhpQHK",
+      "role": "USER",
+      "isVerifiedEmail": false,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-23T20:02:31.513Z"
     }
   ],
   "leads": [],
@@ -254,6 +265,14 @@
       "expiresAt": "2026-06-22T18:11:18.998Z",
       "used": true,
       "createdAt": "2026-06-22T18:06:19.176Z"
+    },
+    {
+      "id": "4124d03d-c611-4869-8464-a6a5a554de90",
+      "userId": "f6eb977e-170e-4da2-b9a2-a2a521f70aef",
+      "otpHash": "$2b$10$iHjYX/flqaWkAYPghFQBAu7vj5r/oUqyTGwjYHo88ASTZNAa9uCIG",
+      "expiresAt": "2026-06-23T20:07:29.712Z",
+      "used": false,
+      "createdAt": "2026-06-23T20:02:31.517Z"
     }
   ],
   "smsOtps": [
@@ -296,6 +315,14 @@
       "expiresAt": "2026-06-22T18:11:18.998Z",
       "used": true,
       "createdAt": "2026-06-22T18:06:19.179Z"
+    },
+    {
+      "id": "3ae58233-c453-44ff-bbcc-a7d1da01eb0c",
+      "userId": "f6eb977e-170e-4da2-b9a2-a2a521f70aef",
+      "otpHash": "$2b$10$SbA8xiX/w3U5AQOSReErXOUwDul/ft0dCZ5BPrRP.6wbHg7oh49oK",
+      "expiresAt": "2026-06-23T20:07:29.712Z",
+      "used": false,
+      "createdAt": "2026-06-23T20:02:31.520Z"
     }
   ],
   "mfaOtps": [
