@@ -47,7 +47,21 @@
     }
   ],
   "leads": [],
-  "bookings": [],
+  "bookings": [
+    {
+      "id": "9b19445b-93b7-4778-bf2a-073b7f3d92a0",
+      "name": "prince",
+      "email": "prince233687@gmail.com",
+      "phone": "07361821076",
+      "serviceName": "Investor Awareness Session",
+      "date": "2026-06-25",
+      "time": "09:00 AM",
+      "meetingMode": "Online",
+      "message": "uewbfjkwgfukewfwbkjfwj",
+      "status": "PENDING",
+      "createdAt": "2026-06-23T14:23:17.186Z"
+    }
+  ],
   "payments": [],
   "articles": [
     {
@@ -284,8 +298,24 @@
       "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
       "otpHash": "$2b$10$R6hlwtEF6tpkvR2EH5e3xOzVhaCynHZzsonA.8UABwShiVvECZhBm",
       "expiresAt": "2026-06-23T08:16:23.903Z",
-      "used": false,
+      "used": true,
       "createdAt": "2026-06-23T08:11:24.037Z"
+    },
+    {
+      "id": "0b2d5133-d2da-444a-84b4-f0088c0e3fef",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$dQcqZH2eA8jmtTyxfB7/DO6G4s0ZucM3ZonlctsGearzJqwTe2L.e",
+      "expiresAt": "2026-06-23T08:49:57.413Z",
+      "used": false,
+      "createdAt": "2026-06-23T08:44:57.570Z"
+    },
+    {
+      "id": "de1aa4cd-89a5-4eb0-b9eb-83eef7f4a14e",
+      "userId": "admin-uuid",
+      "otpHash": "$2b$10$NlWTosIUOZrdUPVXxWogFeAyJNx6RBURAwWi074c.AcQ0KOdiChk.",
+      "expiresAt": "2026-06-23T14:48:29.815Z",
+      "used": false,
+      "createdAt": "2026-06-23T14:43:30.364Z"
     }
   ],
   "passwordResetTokens": [
@@ -300,44 +330,14 @@
   ],
   "rateLimitLogs": [
     {
-      "id": "300037a7-61e3-4731-a3e2-73de58b806d9",
-      "key": "resend-otp:email:pr9067@gmail.com",
-      "createdAt": "2026-06-22T17:58:21.317Z"
+      "id": "701e021e-d5e5-4185-be2d-fec7c7d41af1",
+      "key": "forgot-password:email:pr78404@gmail.com",
+      "createdAt": "2026-06-23T14:16:16.962Z"
     },
     {
-      "id": "983536ef-5324-4d47-81cd-72b122c95276",
-      "key": "resend-otp:phone:6211450789",
-      "createdAt": "2026-06-22T17:58:21.317Z"
-    },
-    {
-      "id": "3f9cd0d8-5e7d-42b0-a12f-230440c5bfcd",
-      "key": "resend-otp:ip:::1",
-      "createdAt": "2026-06-22T17:58:21.317Z"
-    },
-    {
-      "id": "90efbab9-92c9-4c5e-bcd1-24cf9f5a4e53",
-      "key": "resend-otp:email:pr784024@gmail.com",
-      "createdAt": "2026-06-22T18:06:19.182Z"
-    },
-    {
-      "id": "96f0919a-79c0-477d-b898-1f8ad9b45324",
-      "key": "resend-otp:phone:7361821076",
-      "createdAt": "2026-06-22T18:06:19.182Z"
-    },
-    {
-      "id": "933e9369-19b9-479b-aa04-90d09f5896fe",
-      "key": "resend-otp:ip:::1",
-      "createdAt": "2026-06-22T18:06:19.182Z"
-    },
-    {
-      "id": "cc149f1c-b77a-499e-b34a-90a1fcea8064",
-      "key": "forgot-password:email:pr784024@gmail.com",
-      "createdAt": "2026-06-22T18:09:53.242Z"
-    },
-    {
-      "id": "9a296745-0ec4-4234-a6ea-0fa53b8b9dfc",
+      "id": "07a119b8-f356-4389-9b6a-df59470cf103",
       "key": "forgot-password:ip:::1",
-      "createdAt": "2026-06-22T18:09:53.242Z"
+      "createdAt": "2026-06-23T14:16:16.962Z"
     }
   ]
 }
