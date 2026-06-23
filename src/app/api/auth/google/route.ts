@@ -69,13 +69,16 @@ async function createAuditLog(userId: string | null, action: string, ip: string,
 
 // Check if credentials are set to determine mode
 function getMode() {
-  const isProdEnv = process.env.NODE_ENV === "production";
   const hasClientId = !!process.env.GOOGLE_CLIENT_ID;
   const hasClientSecret = !!process.env.GOOGLE_CLIENT_SECRET;
 
-  if (isProdEnv && hasClientId && hasClientSecret) {
+  // If both Google OAuth credentials are present, use PRODUCTION mode
+  // This allows testing in development environment as well
+  if (hasClientId && hasClientSecret) {
     return "PRODUCTION";
   }
+  
+  // Otherwise, use DEMO mode (3 test accounts available)
   return "DEMO";
 }
 
