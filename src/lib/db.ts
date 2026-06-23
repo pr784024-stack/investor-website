@@ -178,11 +178,95 @@ const initialMockDb = {
   rateLimitLogs: [] as any[],
 };
 
-export const mockDb = globalForMockDb.mockDb || initialMockDb;
+import fs from "fs";
+import path from "path";
+
+// Persistence configuration for Demo Mode (Option B: JSON File Persistence)
+const STATE_FILE_PATH = path.join(process.cwd(), "demo-state.json");
+
+// Helper to save mockDb state to disk
+export function saveMockDbState() {
+  try {
+    fs.writeFileSync(STATE_FILE_PATH, JSON.stringify(mockDb, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Failed to write mockDb state to file:", err);
+  }
+}
+
+// Helper to load mockDb state from disk
+function loadMockDbState() {
+  try {
+    if (fs.existsSync(STATE_FILE_PATH)) {
+      const data = fs.readFileSync(STATE_FILE_PATH, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (err) {
+    console.error("Failed to read mockDb state from file:", err);
+  }
+  return null;
+}
+
+const loadedState = loadMockDbState();
+let rawMockDb = globalForMockDb.mockDb || loadedState || initialMockDb;
+
+// Ensure all required arrays exist (guards against stale global cache from HMR)
+if (!Array.isArray(rawMockDb.users)) rawMockDb.users = [];
+if (!Array.isArray(rawMockDb.leads)) rawMockDb.leads = [];
+if (!Array.isArray(rawMockDb.bookings)) rawMockDb.bookings = [];
+if (!Array.isArray(rawMockDb.payments)) rawMockDb.payments = [];
+if (!Array.isArray(rawMockDb.articles)) rawMockDb.articles = [];
+if (!Array.isArray(rawMockDb.categories)) rawMockDb.categories = [];
+if (!Array.isArray(rawMockDb.partners)) rawMockDb.partners = [];
+if (!Array.isArray(rawMockDb.contactRequests)) rawMockDb.contactRequests = [];
+if (!Array.isArray(rawMockDb.subscribers)) rawMockDb.subscribers = [];
+if (!Array.isArray(rawMockDb.notifications)) rawMockDb.notifications = [];
+if (!Array.isArray(rawMockDb.adminLogs)) rawMockDb.adminLogs = [];
+if (!Array.isArray(rawMockDb.analytics)) rawMockDb.analytics = [];
+if (!Array.isArray(rawMockDb.emailOtps)) rawMockDb.emailOtps = [];
+if (!Array.isArray(rawMockDb.smsOtps)) rawMockDb.smsOtps = [];
+if (!Array.isArray(rawMockDb.mfaOtps)) rawMockDb.mfaOtps = [];
+if (!Array.isArray(rawMockDb.passwordResetTokens)) rawMockDb.passwordResetTokens = [];
+if (!Array.isArray(rawMockDb.rateLimitLogs)) rawMockDb.rateLimitLogs = [];
 
 if (process.env.NODE_ENV !== "production") {
-  globalForMockDb.mockDb = mockDb;
+  globalForMockDb.mockDb = rawMockDb;
 }
+
+// Automatically save mockDb to disk when mutations occur by wrapping the object in a Proxy
+export const mockDbProxyHandler = {
+  get(target: any, prop: string | symbol): any {
+    const val = Reflect.get(target, prop);
+    if (val && typeof val === "object") {
+      // Return a recursive proxy to capture nested updates
+      return new Proxy(val, {
+        set(t: any, p: string | symbol, value: any, receiver: any) {
+          const res = Reflect.set(t, p, value, receiver);
+          saveMockDbState();
+          return res;
+        },
+        deleteProperty(t: any, p: string | symbol) {
+          const res = Reflect.deleteProperty(t, p);
+          saveMockDbState();
+          return res;
+        }
+      });
+    }
+    return val;
+  },
+  set(target: any, prop: string | symbol, value: any, receiver: any) {
+    const res = Reflect.set(target, prop, value, receiver);
+    saveMockDbState();
+    return res;
+  },
+  deleteProperty(target: any, prop: string | symbol) {
+    const res = Reflect.deleteProperty(target, prop);
+    saveMockDbState();
+    return res;
+  }
+};
+
+// Export the Proxy under the name mockDb so callers import it seamlessly
+export const mockDb = new Proxy(rawMockDb, mockDbProxyHandler);
 
 // Safe executor that runs prisma query
 export async function dbQuery<T>(prismaAction: () => Promise<T>, mockAction: () => T): Promise<T> {

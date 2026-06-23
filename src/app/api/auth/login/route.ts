@@ -84,6 +84,11 @@ export async function POST(req: NextRequest) {
     if (useDb) {
       try {
         const { prisma } = await import("@/lib/db");
+        // Invalidate all previous unused MFA OTPs for this user
+        await prisma.mfaOtp.updateMany({
+          where: { userId: user.id, used: false },
+          data: { used: true }
+        });
         await prisma.mfaOtp.create({
           data: {
             userId: user.id,
@@ -96,6 +101,10 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Database transaction failed. Please check your connection." }, { status: 500 });
       }
     } else {
+      // Invalidate all previous unused MFA OTPs in mockDb
+      mockDb.mfaOtps.forEach((o: any) => {
+        if (o.userId === user.id && !o.used) o.used = true;
+      });
       mockDb.mfaOtps.push({
         id: crypto.randomUUID(),
         userId: user.id,
@@ -111,7 +120,7 @@ export async function POST(req: NextRequest) {
     const isSmsLive = isSmsConfigured();
 
     if (isEmailLive || isSmsLive) {
-      console.log(`\n===========================================\n[MFA SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP Code: ${mfaOtpValue} (Sent: ${isEmailLive || isSmsLive})\n===========================================\n`);
+      console.log(`\n===========================================\n[MFA SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP Code: [SENT VIA ${isEmailLive ? 'EMAIL' : 'SMS'}]\n===========================================\n`);
     } else {
       console.log(`\n===========================================\n[MFA SYSTEM (DEMO MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP Code: ${mfaOtpValue}\n===========================================\n`);
     }

@@ -9,6 +9,10 @@ function validateEmail(e: string) {
 }
 
 export async function POST(req: NextRequest) {
+  // Safe mockDb guard
+  if (!Array.isArray(mockDb.rateLimitLogs)) mockDb.rateLimitLogs = [];
+  if (!Array.isArray(mockDb.passwordResetTokens)) mockDb.passwordResetTokens = [];
+
   try {
     const body = await req.json();
     const rawEmail = body.email || "";
@@ -37,6 +41,10 @@ export async function POST(req: NextRequest) {
 
     if (useDb) {
       const { prisma } = await import("@/lib/db");
+      // Auto-cleanup old rate limit logs in database
+      await prisma.rateLimitLog.deleteMany({
+        where: { createdAt: { lt: oneHourAgo } }
+      });
       emailLogsCount = await prisma.rateLimitLog.count({
         where: { key: emailKey, createdAt: { gte: oneHourAgo } }
       });
@@ -44,6 +52,10 @@ export async function POST(req: NextRequest) {
         where: { key: ipKey, createdAt: { gte: oneHourAgo } }
       });
     } else {
+      // Auto-cleanup old rate limit logs in mockDb
+      mockDb.rateLimitLogs = mockDb.rateLimitLogs.filter(
+        (log: any) => new Date(log.createdAt) >= oneHourAgo
+      );
       emailLogsCount = mockDb.rateLimitLogs.filter(
         (log: any) => log.key === emailKey && new Date(log.createdAt) >= oneHourAgo
       ).length;
@@ -87,6 +99,14 @@ export async function POST(req: NextRequest) {
     // If user does not exist, return generic success to avoid enumeration
     if (!user) {
       return NextResponse.json({ success: true, message: genericMessage });
+    }
+
+    // 3.5 Check if Admin (Security Rule: Option C requires separate admin route)
+    if (user.role === "ADMIN") {
+      return NextResponse.json({
+        error: "Admin accounts require enhanced MFA verification. Please use the Admin Forgot Password flow.",
+        adminResetRequired: true
+      }, { status: 403 });
     }
 
     // 4. Generate Reset Token
@@ -134,7 +154,7 @@ export async function POST(req: NextRequest) {
 
     // 6. Deliver Reset URL
     if (isEmailLive) {
-      console.log(`\n===========================================\n[FORGOT PASSWORD SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nReset Link: ${resetUrl}\n===========================================\n`);
+      console.log(`\n===========================================\n[FORGOT PASSWORD SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nReset Link: [SENT VIA EMAIL]\n===========================================\n`);
       await sendEmail({
         to: email,
         subject: "Reset Your InvestorBridge Password",

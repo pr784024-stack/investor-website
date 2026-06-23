@@ -4,6 +4,12 @@ import { mockDb, isDatabaseConfigured } from "@/lib/db";
 import { isEmailConfigured, isSmsConfigured, sendEmail, sendSms } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
+  // Safe mockDb guard
+  if (!Array.isArray(mockDb.rateLimitLogs)) mockDb.rateLimitLogs = [];
+  if (!Array.isArray(mockDb.emailOtps)) mockDb.emailOtps = [];
+  if (!Array.isArray(mockDb.smsOtps)) mockDb.smsOtps = [];
+  if (!Array.isArray(mockDb.mfaOtps)) mockDb.mfaOtps = [];
+
   try {
     const body = await req.json();
     const userId = body.userId || "";
@@ -31,20 +37,22 @@ export async function POST(req: NextRequest) {
 
     const email = user.email.toLowerCase();
     const phone = user.phone;
+    // 1. Rate Limiting Check & Auto-Cleanup
+    let emailLogsCount = 0;
+    let phoneLogsCount = 0;
+    let ipLogsCount = 0;
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
 
-    // Keys for rate limiting
     const emailKey = `resend-otp:email:${email}`;
     const phoneKey = `resend-otp:phone:${phone}`;
     const ipKey = `resend-otp:ip:${ip}`;
 
-    // 1. Rate Limiting Check
-    let emailLogsCount = 0;
-    let phoneLogsCount = 0;
-    let ipLogsCount = 0;
-
     if (useDb) {
       const { prisma } = await import("@/lib/db");
+      // Auto-cleanup old rate limit logs in database
+      await prisma.rateLimitLog.deleteMany({
+        where: { createdAt: { lt: oneHourAgo } }
+      });
       emailLogsCount = await prisma.rateLimitLog.count({
         where: { key: emailKey, createdAt: { gte: oneHourAgo } }
       });
@@ -55,6 +63,10 @@ export async function POST(req: NextRequest) {
         where: { key: ipKey, createdAt: { gte: oneHourAgo } }
       });
     } else {
+      // Auto-cleanup old rate limit logs in mockDb
+      mockDb.rateLimitLogs = mockDb.rateLimitLogs.filter(
+        (log: any) => new Date(log.createdAt) >= oneHourAgo
+      );
       emailLogsCount = mockDb.rateLimitLogs.filter(
         (log: any) => log.key === emailKey && new Date(log.createdAt) >= oneHourAgo
       ).length;
@@ -145,7 +157,7 @@ export async function POST(req: NextRequest) {
 
       // Deliver new registration OTPs
       if (isEmailLive || isSmsLive) {
-        console.log(`\n===========================================\n[OTP RESEND SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nEmail OTP: ${emailOtpValue} (Sent: ${isEmailLive})\nSMS OTP: ${smsOtpValue} (Sent: ${isSmsLive})\n===========================================\n`);
+        console.log(`\n===========================================\n[OTP RESEND SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nEmail OTP: [SENT VIA EMAIL]\nSMS OTP: [SENT VIA SMS]\n===========================================\n`);
       } else {
         console.log(`\n===========================================\n[OTP RESEND SYSTEM (DEMO MODE)]\nUser: ${user.name} (${user.email})\nEmail OTP: ${emailOtpValue}\nSMS OTP: ${smsOtpValue}\n===========================================\n`);
       }
@@ -207,7 +219,7 @@ export async function POST(req: NextRequest) {
 
       // Deliver new MFA OTP
       if (isEmailLive || isSmsLive) {
-        console.log(`\n===========================================\n[MFA OTP RESEND SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP: ${mfaOtpValue} (Sent: ${isEmailLive || isSmsLive})\n===========================================\n`);
+        console.log(`\n===========================================\n[MFA OTP RESEND SYSTEM (PRODUCTION MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP: [SENT VIA ${isEmailLive ? 'EMAIL' : 'SMS'}]\n===========================================\n`);
       } else {
         console.log(`\n===========================================\n[MFA OTP RESEND SYSTEM (DEMO MODE)]\nUser: ${user.name} (${user.email})\nMFA OTP: ${mfaOtpValue}\n===========================================\n`);
       }

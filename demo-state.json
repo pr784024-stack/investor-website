@@ -1,0 +1,327 @@
+{
+  "users": [
+    {
+      "id": "admin-uuid",
+      "name": "InvestorBridge Admin",
+      "email": "admin@investorbridge.com",
+      "phone": "7340806804",
+      "passwordHash": "$2b$10$Ez3WaZ5TGvrnQXYlSmtITOmWPsOJL5J45hcfJNbbpWkYJa4HHdNMS",
+      "role": "ADMIN",
+      "mfaEnabled": true,
+      "isVerifiedEmail": true,
+      "isVerifiedPhone": true,
+      "createdAt": "2026-06-22T11:29:04.321Z"
+    },
+    {
+      "id": "6e9c882d-9715-45cf-846c-7191bae39cb4",
+      "name": "Prince Raj",
+      "email": "prem23645@gmail.com",
+      "phone": "7361281076",
+      "passwordHash": "$2b$12$RQOgXkI97VBr85v8s8Zl4evjaeOZmOlsIn26xe7hVnmSEpdJlqRhu",
+      "role": "USER",
+      "isVerifiedEmail": false,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-22T11:29:05.881Z"
+    },
+    {
+      "id": "b1974982-285b-4ae5-b108-af021bfb45f3",
+      "name": "Prince Raj",
+      "email": "pr9067@gmail.com",
+      "phone": "6211450789",
+      "passwordHash": "$2b$12$kBTWYQqCZoKdizIXIQ8lD.1RpuM7Xc3zvAIJVUremW.7utA7E9rNG",
+      "role": "USER",
+      "isVerifiedEmail": false,
+      "isVerifiedPhone": false,
+      "createdAt": "2026-06-22T15:10:48.558Z"
+    },
+    {
+      "id": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "name": "Prince Raj",
+      "email": "pr784024@gmail.com",
+      "phone": "7361821076",
+      "passwordHash": "$2b$12$jsafQ5V4H19sX0HO7XkoCeRHbj2xQgDKXpme6yBHotzRFbfjnIveK",
+      "role": "USER",
+      "isVerifiedEmail": true,
+      "isVerifiedPhone": true,
+      "createdAt": "2026-06-22T18:00:07.136Z"
+    }
+  ],
+  "leads": [],
+  "bookings": [],
+  "payments": [],
+  "articles": [
+    {
+      "id": "compounding",
+      "slug": "compounding",
+      "title": "The Power of Compounding: How to Build Long-Term Wealth",
+      "content": "<p>Compounding is often referred to as the eighth wonder of the world. It is the process where your investment's earnings, either from capital gains or interest, are reinvested to generate additional earnings over time. This cycle continues, allowing your initial investment to grow exponentially.</p>\n      <h3>How Compounding Works</h3>\n      <p>Imagine you invest ₹10,000 at a 10% annual interest rate. After the first year, you earn ₹1,000, bringing your total to ₹11,000. In the second year, you earn 10% on ₹11,000, which is ₹1,100, bringing your total to ₹12,100. Over 30 years, that ₹10,000 grows to over ₹174,494! That is the magic of compounding.</p>\n      <h3>Key Factors in Compounding</h3>\n      <ul>\n        <li><strong>Time:</strong> The longer you leave your money invested, the more powerful compounding becomes. Starting early is the single most important factor.</li>\n        <li><strong>Consistency:</strong> Making regular contributions, even small ones, significantly accelerates wealth building.</li>\n        <li><strong>Rate of Return:</strong> A higher rate of return increases the compounding effect, though it usually comes with higher risk.</li>\n      </ul>",
+      "author": "InvestorBridge Research",
+      "readingTime": "5 mins",
+      "categoryName": "Compounding",
+      "featuredImage": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop",
+      "seoTitle": "The Power of Compounding - InvestorBridge",
+      "seoDesc": "Learn how compounding works and how to harness it to build long-term generational wealth.",
+      "seoKeywords": "Compounding, Wealth Creation, Investing",
+      "publishedAt": "2026-06-22T11:29:04.321Z",
+      "isPublished": true
+    },
+    {
+      "id": "currency-diversification",
+      "slug": "currency-diversification",
+      "title": "Why Currency Diversification is Essential for Modern Portfolios",
+      "content": "<p>Most investors suffer from 'home country bias'—investing all their wealth in their local currency and markets. However, currency fluctuations can significantly impact your real purchasing power over the long run.</p>\n      <h3>What is Currency Diversification?</h3>\n      <p>Currency diversification involves holding assets denominated in different global currencies, such as the US Dollar (USD), Euro (EUR), or British Pound (GBP). By holding global assets, you reduce the risk of a single currency depreciating and eroding your wealth.</p>\n      <h3>The Impact of Depreciating Currencies</h3>\n      <p>Historically, emerging market currencies have depreciated against the USD. If your local currency depreciates by 3% to 5% annually against the USD, any local return is discounted by that inflation factor in global terms. Investing in USD-denominated assets provides a natural hedge.</p>",
+      "author": "Global Markets Team",
+      "readingTime": "7 mins",
+      "categoryName": "Currency Awareness",
+      "featuredImage": "https://images.unsplash.com/photo-1502920514313-52581002a659?q=80&w=600&auto=format&fit=crop",
+      "seoTitle": "Currency Diversification Guide - InvestorBridge",
+      "seoDesc": "Discover the critical benefits of global currency diversification to hedge against local currency depreciation.",
+      "seoKeywords": "Currency, USD, Global Markets, Diversification",
+      "publishedAt": "2026-06-22T11:29:04.321Z",
+      "isPublished": true
+    },
+    {
+      "id": "gdp-per-capita",
+      "slug": "gdp-per-capita",
+      "title": "GDP Per Capita and Global Investing: Connecting the Dots",
+      "content": "<p>GDP per capita is a key metric indicating the economic output per person. When evaluating international investments, understanding the GDP growth rate and purchasing power parity is crucial.</p>\n      <h3>Why GDP Per Capita Matters</h3>\n      <p>Countries with rising GDP per capita usually experience growing middle classes, higher consumer spending and stronger domestic corporate earnings. By investing in global markets with high GDP per capita or high growth rates, you capture international growth drivers.</p>",
+      "author": "Macroeconomics Desk",
+      "readingTime": "6 mins",
+      "categoryName": "Global Investing",
+      "featuredImage": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop",
+      "seoTitle": "GDP Per Capita & Global Investing - InvestorBridge",
+      "seoDesc": "Understand how macro GDP per capita shifts affect equity returns and global investment opportunities.",
+      "seoKeywords": "GDP, Macroeconomics, International Investing",
+      "publishedAt": "2026-06-22T11:29:04.321Z",
+      "isPublished": true
+    },
+    {
+      "id": "investor-mistakes",
+      "slug": "investor-mistakes",
+      "title": "Top 5 Investor Mistakes and How to Avoid Them",
+      "content": "<p>Human psychology often gets in the way of investment success. Let's look at the five most common cognitive traps that investors fall into and strategies to navigate them.</p>\n      <h3>1. Panic Selling During Market Downturns</h3>\n      <p>Markets move in cycles. Selling your long-term investments during a temporary market correction locks in losses. Instead, rebalance your portfolio or maintain a long-term view.</p>\n      <h3>2. Lack of Diversification</h3>\n      <p>Putting all your eggs in one basket is highly risky. Diversification across asset classes, sectors and geographies is the only free lunch in finance.</p>",
+      "author": "Behavioral Finance Dept",
+      "readingTime": "8 mins",
+      "categoryName": "Investor Psychology",
+      "featuredImage": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=600&auto=format&fit=crop",
+      "seoTitle": "Common Investor Mistakes - InvestorBridge",
+      "seoDesc": "Avoid critical cognitive errors that destroy wealth. Learn the psychological pitfalls of investing.",
+      "seoKeywords": "Investor Psychology, Risk Management, Investing Mistakes",
+      "publishedAt": "2026-06-22T11:29:04.321Z",
+      "isPublished": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Global Investing",
+      "slug": "global-investing"
+    },
+    {
+      "id": "2",
+      "name": "Compounding",
+      "slug": "compounding"
+    },
+    {
+      "id": "3",
+      "name": "Diversification",
+      "slug": "diversification"
+    },
+    {
+      "id": "4",
+      "name": "Currency Awareness",
+      "slug": "currency-awareness"
+    },
+    {
+      "id": "5",
+      "name": "Investor Psychology",
+      "slug": "investor-psychology"
+    },
+    {
+      "id": "6",
+      "name": "Risk Management",
+      "slug": "risk-management"
+    },
+    {
+      "id": "7",
+      "name": "Wealth Creation",
+      "slug": "wealth-creation"
+    }
+  ],
+  "partners": [],
+  "contactRequests": [],
+  "subscribers": [],
+  "notifications": [],
+  "adminLogs": [],
+  "analytics": [],
+  "emailOtps": [
+    {
+      "id": "1ff158d0-7700-4f5f-99ca-99e7e8aee6e1",
+      "userId": "6e9c882d-9715-45cf-846c-7191bae39cb4",
+      "otpHash": "$2b$10$Vk7Ty.BkPmbDA6Y1EL6Ui.IrvY/Tq3RdzJQ0Zplt0.lr03VoxWa/O",
+      "expiresAt": "2026-06-22T11:34:04.462Z",
+      "used": false,
+      "createdAt": "2026-06-22T11:29:05.881Z"
+    },
+    {
+      "id": "38bd4979-6ebe-4163-9977-6a6e66e8cc63",
+      "userId": "b1974982-285b-4ae5-b108-af021bfb45f3",
+      "otpHash": "$2b$10$iwj9zHNIC9NJiuDFnp/gWu8OsefLHDP8WhZALEJCeVdROwtzwQF6e",
+      "expiresAt": "2026-06-22T15:15:45.682Z",
+      "used": true,
+      "createdAt": "2026-06-22T15:10:48.561Z"
+    },
+    {
+      "id": "eb5605fb-bf68-4027-92a9-4e914d806b66",
+      "userId": "b1974982-285b-4ae5-b108-af021bfb45f3",
+      "otpHash": "$2b$10$kOz0TIRbpBjXP8SxY95r7OkaR1JSqcT2DQiizG0DIZox.lGaT5PMa",
+      "expiresAt": "2026-06-22T18:03:21.078Z",
+      "used": false,
+      "createdAt": "2026-06-22T17:58:21.312Z"
+    },
+    {
+      "id": "24fae2c2-0fa2-4011-8632-fc975ddae168",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$D2Y0gTQmWNV5Otz1/jgJxuILLeUodig2CAGwXTX1/PVngVP5DY0fe",
+      "expiresAt": "2026-06-22T18:05:06.302Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:00:07.140Z"
+    },
+    {
+      "id": "cca8f0f7-aeb8-45ea-b912-e87f6fe5848c",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$CHu1.ysOLIZncSPKEGK8DueC6y7gsSYOA7cBTe1PaF5u8xLtWGRvO",
+      "expiresAt": "2026-06-22T18:11:18.998Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:06:19.176Z"
+    }
+  ],
+  "smsOtps": [
+    {
+      "id": "1cfa3566-fd3e-4598-b2df-7d14add0a310",
+      "userId": "6e9c882d-9715-45cf-846c-7191bae39cb4",
+      "otpHash": "$2b$10$Po5J/kKSt2RqGlZkO2sH3uHsMSAgDYXuJOXUOKY18.mOPHVX9fLDG",
+      "expiresAt": "2026-06-22T11:34:04.462Z",
+      "used": false,
+      "createdAt": "2026-06-22T11:29:05.881Z"
+    },
+    {
+      "id": "97e31fd2-d2fd-46ad-a1b2-84f5ad6f0193",
+      "userId": "b1974982-285b-4ae5-b108-af021bfb45f3",
+      "otpHash": "$2b$10$YhW3EAbsYKdak2XIseQkxevTOD4q/qfQY5oupLmIxyBl519urh1zO",
+      "expiresAt": "2026-06-22T15:15:45.682Z",
+      "used": true,
+      "createdAt": "2026-06-22T15:10:48.561Z"
+    },
+    {
+      "id": "dee3d701-6dd7-4cb1-9400-dc89b6505060",
+      "userId": "b1974982-285b-4ae5-b108-af021bfb45f3",
+      "otpHash": "$2b$10$kcNosYGKXJNnOWjpZQ2I0O3iiU1XohXeUIOXEiwbfoeL1n7101U7O",
+      "expiresAt": "2026-06-22T18:03:21.078Z",
+      "used": false,
+      "createdAt": "2026-06-22T17:58:21.315Z"
+    },
+    {
+      "id": "b407f6c1-55a5-477b-bc4c-a802107de9e5",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$uyJh5R/9wTo5VhvonI/n3uoTp254bO6uyLqEDbfhJ0xSdoEtFtbou",
+      "expiresAt": "2026-06-22T18:05:06.302Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:00:07.142Z"
+    },
+    {
+      "id": "010f2732-89d2-4347-8b9b-0fab456d7f5e",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$ERMGVV9Z.xcrkAFEi38ZNueOJopOtAFJ0y3SylDN7XBm/SNuK8kSa",
+      "expiresAt": "2026-06-22T18:11:18.998Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:06:19.179Z"
+    }
+  ],
+  "mfaOtps": [
+    {
+      "id": "2ec2bad5-88ab-4afa-9afe-2142ed990d24",
+      "userId": "admin-uuid",
+      "otpHash": "$2b$10$k1PHvnThGUamyI9QSMO9j.jxk945TM6j9/yy7pPX2VS4E9bEnX.PS",
+      "expiresAt": "2026-06-22T14:45:38.984Z",
+      "used": true,
+      "createdAt": "2026-06-22T14:40:39.150Z"
+    },
+    {
+      "id": "7f33c277-2d14-4512-b729-7dd9f780df04",
+      "userId": "admin-uuid",
+      "otpHash": "$2b$10$bBIJNm6lmOiSl87Jf7nPkuQNWMNswFRSwlw3cmJEIQNRyciGPpZee",
+      "expiresAt": "2026-06-22T14:47:06.770Z",
+      "used": true,
+      "createdAt": "2026-06-22T14:42:06.954Z"
+    },
+    {
+      "id": "a043d3cf-f62a-4c05-be4d-cc4cebf3794a",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$lbJAoxodegaT2A/rPA4wWuLD1h4olAKIKQqh3TOQLPSXOLV0nGl9u",
+      "expiresAt": "2026-06-22T18:14:09.902Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:09:10.007Z"
+    },
+    {
+      "id": "1f38ae7b-bc34-465b-b72b-4b20b7d795b2",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "otpHash": "$2b$10$bzxQNqso/XfcMJwV8GkIh.yqfgf0dglU1MoDS5wqe.SqJPH6ZM2Wq",
+      "expiresAt": "2026-06-22T18:16:16.288Z",
+      "used": false,
+      "createdAt": "2026-06-22T18:11:16.434Z"
+    }
+  ],
+  "passwordResetTokens": [
+    {
+      "id": "1b100a9d-8edd-45ab-ac80-7151f9cd1969",
+      "userId": "f87dc514-3136-4269-bc74-4f009a8e7929",
+      "tokenHash": "c8e267f76d9fdb2ca1f5844167f7a71f25a8de5562dce40ff3c3f989111a2f52",
+      "expiresAt": "2026-06-22T18:24:53.247Z",
+      "used": true,
+      "createdAt": "2026-06-22T18:09:53.247Z"
+    }
+  ],
+  "rateLimitLogs": [
+    {
+      "id": "300037a7-61e3-4731-a3e2-73de58b806d9",
+      "key": "resend-otp:email:pr9067@gmail.com",
+      "createdAt": "2026-06-22T17:58:21.317Z"
+    },
+    {
+      "id": "983536ef-5324-4d47-81cd-72b122c95276",
+      "key": "resend-otp:phone:6211450789",
+      "createdAt": "2026-06-22T17:58:21.317Z"
+    },
+    {
+      "id": "3f9cd0d8-5e7d-42b0-a12f-230440c5bfcd",
+      "key": "resend-otp:ip:::1",
+      "createdAt": "2026-06-22T17:58:21.317Z"
+    },
+    {
+      "id": "90efbab9-92c9-4c5e-bcd1-24cf9f5a4e53",
+      "key": "resend-otp:email:pr784024@gmail.com",
+      "createdAt": "2026-06-22T18:06:19.182Z"
+    },
+    {
+      "id": "96f0919a-79c0-477d-b898-1f8ad9b45324",
+      "key": "resend-otp:phone:7361821076",
+      "createdAt": "2026-06-22T18:06:19.182Z"
+    },
+    {
+      "id": "933e9369-19b9-479b-aa04-90d09f5896fe",
+      "key": "resend-otp:ip:::1",
+      "createdAt": "2026-06-22T18:06:19.182Z"
+    },
+    {
+      "id": "cc149f1c-b77a-499e-b34a-90a1fcea8064",
+      "key": "forgot-password:email:pr784024@gmail.com",
+      "createdAt": "2026-06-22T18:09:53.242Z"
+    },
+    {
+      "id": "9a296745-0ec4-4234-a6ea-0fa53b8b9dfc",
+      "key": "forgot-password:ip:::1",
+      "createdAt": "2026-06-22T18:09:53.242Z"
+    }
+  ]
+}

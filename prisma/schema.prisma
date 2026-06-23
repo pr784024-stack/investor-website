@@ -42,24 +42,28 @@ enum NotificationType {
 }
 
 model User {
-  id                  String         @id @default(uuid())
+  id                  String               @id @default(uuid())
   name                String
-  email               String         @unique
-  phone               String         @unique
+  email               String               @unique
+  phone               String               @unique
   passwordHash        String
-  role                Role           @default(USER)
-  isVerifiedEmail     Boolean        @default(false)
-  isVerifiedPhone     Boolean        @default(false)
-  mfaEnabled          Boolean        @default(false)
-  failedLoginAttempts Int            @default(0)
+  role                Role                 @default(USER)
+  isVerifiedEmail     Boolean              @default(false)
+  isVerifiedPhone     Boolean              @default(false)
+  mfaEnabled          Boolean              @default(false)
+  failedLoginAttempts Int                  @default(0)
   lockoutUntil        DateTime?
-  createdAt           DateTime       @default(now())
-  updatedAt           DateTime       @updatedAt
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
   
   bookings            Booking[]
   payments            Payment[]
   notifications       Notification[]
-  savedArticles       Article[]      @relation("SavedArticles")
+  savedArticles       Article[]            @relation("SavedArticles")
+  emailOtps           EmailOtp[]
+  smsOtps             SmsOtp[]
+  mfaOtps             MfaOtp[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Lead {
@@ -203,42 +207,51 @@ model Analytics {
 model EmailOtp {
   id        String   @id @default(uuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id])
   otpHash   String
   expiresAt DateTime
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+  @@index([userId, used])
 }
 
 model SmsOtp {
   id        String   @id @default(uuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id])
   otpHash   String
   expiresAt DateTime
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+  @@index([userId, used])
 }
 
 model MfaOtp {
   id        String   @id @default(uuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id])
   otpHash   String
   expiresAt DateTime
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+  @@index([userId, used])
 }
 
 model PasswordResetToken {
   id        String   @id @default(uuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id])
   tokenHash String
   expiresAt DateTime
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+  @@index([userId])
 }
 
 model RateLimitLog {
   id        String   @id @default(uuid())
   key       String
   createdAt DateTime @default(now())
+  @@index([key, createdAt])
 }
 

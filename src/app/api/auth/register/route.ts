@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
         }
 
         if (isEmailLive || isSmsLive) {
-          console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (PRODUCTION MODE)]\nUser: ${name} (${email})\nEmail OTP: ${emailOtpValue} (Sent: ${isEmailLive})\nSMS OTP: ${smsOtpValue} (Sent: ${isSmsLive})\n===========================================\n`);
+          console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (PRODUCTION MODE)]\nUser: ${name} (${email})\nEmail OTP: [SENT VIA EMAIL]\nSMS OTP: [SENT VIA SMS]\n===========================================\n`);
         } else {
           console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (DEMO MODE - DB)]\nUser: ${name} (${email})\nEmail OTP: ${emailOtpValue}\nSMS OTP: ${smsOtpValue}\n===========================================\n`);
         }
@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
 
     // Demo Mode Flow
     if (isEmailLive || isSmsLive) {
-      console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (PRODUCTION MODE)]\nUser: ${name} (${email})\nEmail OTP: ${emailOtpValue} (Sent: ${isEmailLive})\nSMS OTP: ${smsOtpValue} (Sent: ${isSmsLive})\n===========================================\n`);
+      console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (PRODUCTION MODE)]\nUser: ${name} (${email})\nEmail OTP: [SENT VIA EMAIL]\nSMS OTP: [SENT VIA SMS]\n===========================================\n`);
     } else {
       console.log(`\n===========================================\n[OTP VERIFICATION SYSTEM (DEMO MODE)]\nUser: ${name} (${email})\nEmail OTP: ${emailOtpValue}\nSMS OTP: ${smsOtpValue}\n===========================================\n`);
     }

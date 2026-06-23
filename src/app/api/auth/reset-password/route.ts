@@ -54,6 +54,61 @@ export async function POST(req: NextRequest) {
     }
 
     const userId = tokenRecord.userId;
+    let user: any = null;
+
+    if (useDb) {
+      const { prisma } = await import("@/lib/db");
+      user = await prisma.user.findUnique({ where: { id: userId } });
+    } else {
+      user = mockDb.users.find((u: any) => u.id === userId);
+    }
+
+    if (!user) {
+      return NextResponse.json({ error: "User associated with this token not found." }, { status: 404 });
+    }
+
+    // Require and verify MFA for ADMIN user at password change time
+    if (user.role === "ADMIN") {
+      const mfaCode = body.mfaCode || "";
+      if (!mfaCode) {
+        return NextResponse.json({
+          error: "Admin authentication required.",
+          mfaRequired: true
+        }, { status: 200 }); // Status 200 to allow the client to prompt for MFA code
+      }
+
+      let latestMfa: any = null;
+      if (useDb) {
+        const { prisma } = await import("@/lib/db");
+        latestMfa = await prisma.mfaOtp.findFirst({
+          where: { userId, used: false },
+          orderBy: { createdAt: "desc" }
+        });
+      } else {
+        const mfas = mockDb.mfaOtps
+          .filter((o: any) => o.userId === userId && !o.used)
+          .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        latestMfa = mfas[0];
+      }
+
+      if (!latestMfa || new Date() > new Date(latestMfa.expiresAt)) {
+        return NextResponse.json({ error: "Admin MFA code expired or not found. Please request a new code." }, { status: 400 });
+      }
+
+      const mfaMatches = await bcrypt.compare(mfaCode, latestMfa.otpHash);
+      if (!mfaMatches) {
+        return NextResponse.json({ error: "Invalid Admin MFA verification code." }, { status: 400 });
+      }
+
+      // Mark MFA OTP as used
+      if (useDb) {
+        const { prisma } = await import("@/lib/db");
+        await prisma.mfaOtp.update({ where: { id: latestMfa.id }, data: { used: true } });
+      } else {
+        latestMfa.used = true;
+      }
+    }
+
     const passwordHash = await bcrypt.hash(password, 12);
 
     if (useDb) {
@@ -70,18 +125,38 @@ export async function POST(req: NextRequest) {
         where: { userId },
         data: { used: true }
       });
+
+      // Add audit log for Admin password change success
+      if (user.role === "ADMIN") {
+        await prisma.adminLog.create({
+          data: {
+            adminId: userId,
+            action: "PASSWORD_CHANGED_SUCCESS",
+            details: "Admin password changed successfully after double MFA check",
+            ipAddress: req.headers.get("x-forwarded-for") || "127.0.0.1"
+          }
+        });
+      }
     } else {
       // Update in mockDb
-      const user = mockDb.users.find((u: any) => u.id === userId);
-      if (!user) {
-        return NextResponse.json({ error: "User associated with this token not found." }, { status: 404 });
-      }
       user.passwordHash = passwordHash;
 
       // Invalidate all tokens for this user
       mockDb.passwordResetTokens.forEach((t: any) => {
         if (t.userId === userId) t.used = true;
       });
+
+      // Add audit log in mockDb
+      if (user.role === "ADMIN") {
+        mockDb.adminLogs.push({
+          id: crypto.randomUUID(),
+          adminId: userId,
+          action: "PASSWORD_CHANGED_SUCCESS",
+          details: "Admin password changed successfully after double MFA check",
+          ipAddress: req.headers.get("x-forwarded-for") || "127.0.0.1",
+          createdAt: new Date()
+        });
+      }
     }
 
     return NextResponse.json({
