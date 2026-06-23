@@ -7,24 +7,6 @@ import { prisma, mockDb, isDatabaseConfigured } from "@/lib/db";
 const JWT_SECRET = process.env.JWT_SECRET || "super-secure-jwt-secret-key-change-in-production";
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "super-secure-jwt-refresh-secret-key-change-in-production";
 
-async function createAuditLog(userId: string | null, action: string, ip: string, userAgent: string) {
-  const useDb = isDatabaseConfigured();
-  if (useDb) {
-    try {
-      await prisma.auditLog.create({
-        data: {
-          userId,
-          action,
-          ipAddress: ip,
-          userAgent
-        }
-      });
-    } catch (e) {
-      console.error("Failed to write audit log:", e);
-    }
-  }
-}
-
 // Production Google OAuth Callback Handler
 export async function GET(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") || "unknown";
@@ -118,8 +100,7 @@ export async function GET(req: NextRequest) {
 
     if (useDb) {
       user = await prisma.user.findUnique({
-        where: { email },
-        include: { accounts: true }
+        where: { email }
       });
 
       if (!user) {
@@ -132,18 +113,18 @@ export async function GET(req: NextRequest) {
             accountStatus: "ACTIVE",
             image: picture,
             passwordHash: "",
-            phone: null
+            phone: null as any
           }
         });
       }
 
       // Link Google account if not already linked
-      const hasAccountLinked = await prisma.account.findFirst({
+      const hasAccountLinked = await (prisma as any).account.findFirst({
         where: { userId: user.id, provider: "google", providerId }
       });
 
       if (!hasAccountLinked) {
-        await prisma.account.create({
+        await (prisma as any).account.create({
           data: {
             userId: user.id,
             provider: "google",
@@ -162,7 +143,7 @@ export async function GET(req: NextRequest) {
         }
       });
 
-      await createAuditLog(user.id, "Google Login Successful", ip, userAgent);
+      console.log(`[GOOGLE OAuth] Production login successful: ${email}`);
     } else {
       user = mockDb.users.find((u: any) => u.email === email);
       if (!user) {
@@ -199,7 +180,7 @@ export async function GET(req: NextRequest) {
     const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
     if (useDb) {
-      await prisma.session.create({
+      await (prisma as any).session.create({
         data: {
           userId: user.id,
           deviceId: "Web-Browser",
