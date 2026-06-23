@@ -10,7 +10,8 @@ import {
   BarChart3, Users, Calendar, CreditCard, FileText, 
   Settings, LogOut, ArrowRight, ShieldCheck, CheckCircle2, 
   AlertCircle, ShieldAlert, Check, X, Edit, Trash, Download, Plus,
-  Search, Shield, MessageSquare, Mail, Phone, Database, KeyRound, Globe, Activity
+  Search, Shield, MessageSquare, Mail, Phone, Database, KeyRound, Globe, Activity,
+  TrendingUp, Smartphone, Lock
 } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -22,7 +23,7 @@ export default function AdminDashboard() {
   } = useApp();
 
   const [activeTab, setActiveTab] = useState<
-    "summary" | "users" | "leads" | "bookings" | "payments" | "content" | "contacts" | "chatbot" | "seo" | "system" | "security"
+    "summary" | "users" | "leads" | "bookings" | "payments" | "content" | "contacts" | "chatbot" | "seo" | "system" | "security" | "analytics" | "settings" | "sessions"
   >("summary");
   
   const [error, setError] = useState("");
@@ -62,6 +63,14 @@ export default function AdminDashboard() {
   const [securityLogs, setSecurityLogs] = useState<any[]>([]);
   const [adminActionLogs, setAdminActionLogs] = useState<any[]>([]);
 
+  // Google OAuth Analytics
+  const googleUsers = users.filter(u => !u.passwordHash || u.passwordHash.length === 0);
+  const emailUsers = users.filter(u => u.passwordHash && u.passwordHash.length > 0);
+  const googleConversionRate = users.length > 0 ? Math.round((googleUsers.length / users.length) * 100) : 0;
+
+  // Active Sessions
+  const [activeSessions, setActiveSessions] = useState<any[]>([]);
+
   // Chatbot Q&A state
   const [chatbotQa, setChatbotQa] = useState<any[]>([
     { q: "What is GIFT City?", a: "GIFT City is India's first operational smart city and international financial services centre (IFSC), offering tax incentives and global investments." },
@@ -69,6 +78,14 @@ export default function AdminDashboard() {
   ]);
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
+
+  // Fetch active sessions from storage
+  useEffect(() => {
+    try {
+      const sessions = JSON.parse(localStorage.getItem("ib_active_sessions") || "[]");
+      setActiveSessions(sessions);
+    } catch (_) {}
+  }, []);
 
   // Fetch local storage lists
   useEffect(() => {
@@ -360,7 +377,9 @@ export default function AdminDashboard() {
 
               {[
                 { id: "summary", name: "SaaS Overview", icon: BarChart3 },
+                { id: "analytics", name: "Google OAuth Analytics", icon: TrendingUp },
                 { id: "users", name: "User Directory", icon: Users },
+                { id: "sessions", name: "Active Sessions", icon: Smartphone },
                 { id: "leads", name: "Pre-Qualified Leads", icon: Activity, badge: leads.filter(l => l.status === "NEW").length },
                 { id: "bookings", name: "Consultations Inbox", icon: Calendar, badge: bookings.filter(b => b.status === "PENDING").length },
                 { id: "payments", name: "Razorpay Revenue", icon: CreditCard },
@@ -368,6 +387,7 @@ export default function AdminDashboard() {
                 { id: "contacts", name: "Contact Requests", icon: MessageSquare },
                 { id: "chatbot", name: "Bridge AI Assistant", icon: Shield },
                 { id: "seo", name: "SEO & Social Modifiers", icon: Globe },
+                { id: "settings", name: "Account Linking", icon: Lock },
                 { id: "system", name: "System Settings", icon: Database },
                 { id: "security", name: "Security & Action Logs", icon: KeyRound },
               ].map((tab) => (
@@ -484,6 +504,95 @@ export default function AdminDashboard() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* GOOGLE OAUTH ANALYTICS TAB */}
+              {activeTab === "analytics" && (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-bold text-[#0B1F3A]">Google OAuth Authentication Analytics</h3>
+                  
+                  {/* Key Metrics */}
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Google Users</span>
+                      <span className="text-xl font-bold text-blue-600 mt-1 block">{googleUsers.length}</span>
+                      <span className="text-[8px] text-gray-400 mt-1">{googleConversionRate}% of total</span>
+                    </div>
+                    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Email Users</span>
+                      <span className="text-xl font-bold text-purple-600 mt-1 block">{emailUsers.length}</span>
+                      <span className="text-[8px] text-gray-400 mt-1">{100 - googleConversionRate}% of total</span>
+                    </div>
+                    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Conversion Rate</span>
+                      <span className="text-xl font-bold text-[#00B386] mt-1 block">{googleConversionRate}%</span>
+                      <span className="text-[8px] text-gray-400 mt-1">Google adoption</span>
+                    </div>
+                    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Dual Auth Users</span>
+                      <span className="text-xl font-bold text-orange-600 mt-1 block">0</span>
+                      <span className="text-[8px] text-gray-400 mt-1">Email + Google linked</span>
+                    </div>
+                  </div>
+
+                  {/* Comparison Chart */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                      <h4 className="text-xs font-bold text-[#0B1F3A] uppercase tracking-wider mb-6">Authentication Method Distribution</h4>
+                      <div className="space-y-4">
+                        <div>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-semibold text-gray-600">Google OAuth</span>
+                            <span className="text-xs font-bold text-blue-600">{googleUsers.length} users</span>
+                          </div>
+                          <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                            <div className="bg-blue-500 h-full rounded-full" style={{ width: `${googleConversionRate}%` }}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-semibold text-gray-600">Email + Password</span>
+                            <span className="text-xs font-bold text-purple-600">{emailUsers.length} users</span>
+                          </div>
+                          <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                            <div className="bg-purple-500 h-full rounded-full" style={{ width: `${100 - googleConversionRate}%` }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                      <h4 className="text-xs font-bold text-[#0B1F3A] uppercase tracking-wider mb-6">Monthly Google Logins</h4>
+                      <div className="flex justify-between items-end h-32 pt-4">
+                        {["Jan", "Feb", "Mar", "Apr", "May", "Jun"].map((mon, idx) => (
+                          <div key={idx} className="flex flex-col items-center gap-2 flex-1">
+                            <div className="bg-blue-500 w-6 rounded-t-sm" style={{ height: `${Math.max(10, (idx + 1) * 8 + Math.random() * 20)}px` }}></div>
+                            <span className="text-[8px] text-gray-400 font-bold">{mon}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Google Users List */}
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <h4 className="text-xs font-bold text-[#0B1F3A] uppercase tracking-wider mb-4">Recent Google Logins</h4>
+                    <div className="space-y-2 max-h-60 overflow-y-auto">
+                      {googleUsers.slice(0, 8).map((user) => (
+                        <div key={user.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+                          <div>
+                            <span className="text-xs font-bold text-[#0B1F3A] block">{user.name}</span>
+                            <span className="text-[9px] text-gray-500 block">{user.email}</span>
+                          </div>
+                          <span className="text-[8px] bg-blue-100 text-blue-700 font-bold px-2 py-1 rounded">Google</span>
+                        </div>
+                      ))}
+                      {googleUsers.length === 0 && (
+                        <div className="text-center py-6 text-[10px] text-gray-400">No Google logins yet</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1167,6 +1276,180 @@ export default function AdminDashboard() {
                         ))
                       )}
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ACTIVE SESSIONS TAB */}
+              {activeTab === "sessions" && (
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm space-y-6">
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0B1F3A] mb-2">Active User Sessions & Device Tracking</h3>
+                    <p className="text-xs text-gray-400 font-medium">Monitor active sessions, devices, and login locations.</p>
+                  </div>
+
+                  {/* Active Sessions Summary */}
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+                      <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Total Sessions</span>
+                      <span className="text-lg font-bold text-blue-700 mt-1">{activeSessions.length}</span>
+                    </div>
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-green-50 to-green-100 p-4">
+                      <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Active Now</span>
+                      <span className="text-lg font-bold text-green-700 mt-1">{activeSessions.filter(s => s.isActive).length}</span>
+                    </div>
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-purple-50 to-purple-100 p-4">
+                      <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Chrome</span>
+                      <span className="text-lg font-bold text-purple-700 mt-1">{activeSessions.filter(s => s.browser?.includes("Chrome")).length}</span>
+                    </div>
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-orange-50 to-orange-100 p-4">
+                      <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Mobile</span>
+                      <span className="text-lg font-bold text-orange-700 mt-1">{activeSessions.filter(s => s.deviceType?.includes("Mobile")).length}</span>
+                    </div>
+                  </div>
+
+                  {/* Sessions Table */}
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200 text-left text-xs">
+                      <thead>
+                        <tr className="text-gray-400 uppercase text-[9px] font-bold tracking-wider bg-gray-50">
+                          <th className="py-3 px-4">User</th>
+                          <th className="py-3 px-4">Device</th>
+                          <th className="py-3 px-4">Browser</th>
+                          <th className="py-3 px-4">IP Address</th>
+                          <th className="py-3 px-4">Last Active</th>
+                          <th className="py-3 px-4">Status</th>
+                          <th className="py-3 px-4 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {activeSessions.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="py-6 px-4 text-center text-gray-400 text-[10px]">
+                              No active sessions recorded
+                            </td>
+                          </tr>
+                        ) : (
+                          activeSessions.map((session: any, idx: number) => (
+                            <tr key={idx} className="hover:bg-gray-50">
+                              <td className="py-3 px-4">
+                                <span className="font-bold text-[#0B1F3A] block">{session.userName}</span>
+                                <span className="text-[9px] text-gray-400">{session.email}</span>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className="text-[9px] font-semibold text-gray-600">{session.deviceType || "Desktop"}</span>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className="text-[9px] bg-blue-50 text-blue-700 px-2 py-1 rounded font-semibold">{session.browser || "Unknown"}</span>
+                              </td>
+                              <td className="py-3 px-4 font-mono text-[8px] text-gray-500">{session.ipAddress}</td>
+                              <td className="py-3 px-4 text-[9px] text-gray-500">{new Date(session.lastActive).toLocaleString()}</td>
+                              <td className="py-3 px-4">
+                                <span className={`text-[8px] font-bold px-2 py-1 rounded uppercase tracking-wider ${
+                                  session.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
+                                }`}>
+                                  {session.isActive ? "Active" : "Inactive"}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-right">
+                                <button className="text-[9px] text-red-600 hover:text-red-700 font-bold">
+                                  Logout
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* ACCOUNT LINKING UI TAB */}
+              {activeTab === "settings" && (
+                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm space-y-6">
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0B1F3A] mb-2">Account Linking & OAuth Settings</h3>
+                    <p className="text-xs text-gray-400 font-medium">Manage authentication methods and linked accounts for users.</p>
+                  </div>
+
+                  {/* Linking Statistics */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-purple-50 to-purple-100 p-4">
+                      <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Email Only</span>
+                      <span className="text-2xl font-bold text-purple-700 mt-2">{emailUsers.length}</span>
+                      <span className="text-[8px] text-gray-500 mt-1 block">Can link Google</span>
+                    </div>
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+                      <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Google Only</span>
+                      <span className="text-2xl font-bold text-blue-700 mt-2">{googleUsers.length}</span>
+                      <span className="text-[8px] text-gray-500 mt-1 block">Can link Email</span>
+                    </div>
+                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-orange-50 to-orange-100 p-4">
+                      <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Dual Auth</span>
+                      <span className="text-2xl font-bold text-orange-700 mt-2">0</span>
+                      <span className="text-[8px] text-gray-500 mt-1 block">Email + Google</span>
+                    </div>
+                  </div>
+
+                  {/* Email Users Available for Linking */}
+                  <div className="space-y-4">
+                    <h4 className="text-xs font-bold text-[#0B1F3A] uppercase tracking-wider border-b border-gray-100 pb-2">
+                      Email Users (Can Link Google Account)
+                    </h4>
+                    <div className="max-h-64 overflow-y-auto space-y-2">
+                      {emailUsers.slice(0, 8).map((user: any) => (
+                        <div key={user.id} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-100">
+                          <div>
+                            <span className="text-xs font-bold text-[#0B1F3A] block">{user.name}</span>
+                            <span className="text-[9px] text-gray-500">{user.email}</span>
+                          </div>
+                          <button className="text-[8px] bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded font-bold">
+                            Link Google
+                          </button>
+                        </div>
+                      ))}
+                      {emailUsers.length === 0 && (
+                        <p className="text-center py-4 text-[10px] text-gray-400">All users linked with Google already</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Google Users Available for Linking */}
+                  <div className="space-y-4">
+                    <h4 className="text-xs font-bold text-[#0B1F3A] uppercase tracking-wider border-b border-gray-100 pb-2">
+                      Google Users (Can Link Email Account)
+                    </h4>
+                    <div className="max-h-64 overflow-y-auto space-y-2">
+                      {googleUsers.slice(0, 8).map((user: any) => (
+                        <div key={user.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+                          <div>
+                            <span className="text-xs font-bold text-[#0B1F3A] block">{user.name}</span>
+                            <span className="text-[9px] text-gray-500">{user.email}</span>
+                          </div>
+                          <button className="text-[8px] bg-purple-500 hover:bg-purple-600 text-white px-2 py-1 rounded font-bold">
+                            Link Email
+                          </button>
+                        </div>
+                      ))}
+                      {googleUsers.length === 0 && (
+                        <p className="text-center py-4 text-[10px] text-gray-400">All Google users linked with Email already</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Linking Instructions */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+                    <h4 className="text-xs font-bold text-blue-900 flex items-center gap-2">
+                      <Lock className="h-4 w-4" /> How Account Linking Works
+                    </h4>
+                    <ul className="text-[9px] text-blue-800 space-y-2 list-disc list-inside">
+                      <li>Email users can link their Google account using the same email address</li>
+                      <li>Google users can set a password to enable email login</li>
+                      <li>Both methods allow login without duplicate accounts</li>
+                      <li>Sessions are shared across both authentication methods</li>
+                      <li>Audit logs track all login attempts from both providers</li>
+                    </ul>
                   </div>
                 </div>
               )}

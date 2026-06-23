@@ -9,6 +9,7 @@ export default function ForgotPassword() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userType, setUserType] = useState<"email" | "google" | null>(null);
   
   // Timer States
   const [countdown, setCountdown] = useState(0);
@@ -29,6 +30,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setUserType(null);
 
     const trimmedEmail = email.trim().toLowerCase();
     if (!trimmedEmail) {
@@ -44,6 +46,28 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
+      // Check if user exists and their auth type
+      const userList = JSON.parse(localStorage.getItem("ib_users") || "[]");
+      const user = userList.find((u: any) => u.email.toLowerCase() === trimmedEmail);
+
+      if (!user) {
+        setError("No account found with this email address.");
+        setLoading(false);
+        return;
+      }
+
+      // Determine if user is Google-only or Email user
+      const isGoogleUser = !user.passwordHash || user.passwordHash.length === 0;
+      setUserType(isGoogleUser ? "google" : "email");
+
+      if (isGoogleUser) {
+        setSuccess("This account uses Google Sign-In. To reset your password, manage your Google account at account.google.com");
+        setCountdown(0);
+        setLoading(false);
+        return;
+      }
+
+      // For email users, proceed with password reset
       const res = await fetch("/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -55,7 +79,7 @@ export default function ForgotPassword() {
         throw new Error(data.error || "Failed to process request.");
       }
 
-      setSuccess(data.message || "A secure password reset link has been generated.");
+      setSuccess(data.message || "A secure password reset link has been sent to your email.");
       setCountdown(30); // Start 30s countdown
     } catch (err: any) {
       setError(err.message || "An error occurred. Please try again.");
@@ -87,11 +111,32 @@ export default function ForgotPassword() {
           )}
 
           {success && (
-            <div className="mb-4 rounded-lg bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-700 flex items-start gap-2">
+            <div className={`mb-4 rounded-lg p-3 text-xs flex items-start gap-2 ${
+              userType === "google" 
+                ? "bg-blue-50 border border-blue-200 text-blue-700" 
+                : "bg-emerald-50 border border-emerald-200 text-emerald-700"
+            }`}>
               <ShieldCheck className="h-4 w-4 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold">Reset Link Generated</p>
-                <p className="mt-0.5">{success}</p>
+                {userType === "google" ? (
+                  <>
+                    <p className="font-bold">Google Account Sign-In</p>
+                    <p className="mt-0.5">{success}</p>
+                    <a 
+                      href="https://accounts.google.com/account/about" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-[10px] underline font-bold mt-1 inline-block hover:opacity-80"
+                    >
+                      Manage Google Account →
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-bold">Reset Link Sent</p>
+                    <p className="mt-0.5">{success}</p>
+                  </>
+                )}
               </div>
             </div>
           )}
