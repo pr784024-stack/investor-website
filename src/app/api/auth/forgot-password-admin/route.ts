@@ -4,8 +4,56 @@ import bcrypt from "bcryptjs";
 import { mockDb, isDatabaseConfigured } from "@/lib/db";
 import { isEmailConfigured, sendEmail, isSmsConfigured, sendSms } from "@/lib/notifications";
 
-function validateEmail(e: string) {
+// Type definitions
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  phone?: string;
+  role: "ADMIN" | "USER";
+  passwordHash: string;
+}
+
+interface RateLimitLog {
+  id: string;
+  key: string;
+  createdAt: Date;
+}
+
+interface MfaOtp {
+  id: string;
+  userId: string;
+  otpHash: string;
+  expiresAt: Date;
+  used: boolean;
+  createdAt: Date;
+}
+
+interface PasswordResetToken {
+  id: string;
+  userId: string;
+  tokenHash: string;
+  expiresAt: Date;
+  used: boolean;
+  createdAt: Date;
+}
+
+interface AdminLog {
+  id: string;
+  adminId: string;
+  action: string;
+  details: string;
+  ipAddress: string;
+  createdAt: Date;
+}
+
+function validateEmail(e: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+
+// Extract Prisma client initialization to avoid repeated imports
+async function getPrismaClient() {
+  return (await import("@/lib/db")).prisma;
 }
 
 export async function POST(req: NextRequest) {
@@ -43,14 +91,14 @@ export async function POST(req: NextRequest) {
     let ipLogsCount = 0;
 
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       await prisma.rateLimitLog.deleteMany({ where: { createdAt: { lt: oneHourAgo } } });
       emailLogsCount = await prisma.rateLimitLog.count({ where: { key: emailKey, createdAt: { gte: oneHourAgo } } });
       ipLogsCount = await prisma.rateLimitLog.count({ where: { key: ipKey, createdAt: { gte: oneHourAgo } } });
     } else {
-      mockDb.rateLimitLogs = mockDb.rateLimitLogs.filter((log: any) => new Date(log.createdAt) >= oneHourAgo);
-      emailLogsCount = mockDb.rateLimitLogs.filter((log: any) => log.key === emailKey).length;
-      ipLogsCount = mockDb.rateLimitLogs.filter((log: any) => log.key === ipKey).length;
+      mockDb.rateLimitLogs = mockDb.rateLimitLogs.filter((log: RateLimitLog) => new Date(log.createdAt) >= oneHourAgo);
+      emailLogsCount = mockDb.rateLimitLogs.filter((log: RateLimitLog) => log.key === emailKey).length;
+      ipLogsCount = mockDb.rateLimitLogs.filter((log: RateLimitLog) => log.key === ipKey).length;
     }
 
     if (emailLogsCount >= 3 || ipLogsCount >= 3) {
@@ -59,7 +107,7 @@ export async function POST(req: NextRequest) {
 
     // Add rate limit log
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       await prisma.rateLimitLog.create({ data: { key: emailKey } });
       await prisma.rateLimitLog.create({ data: { key: ipKey } });
     } else {
@@ -70,12 +118,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Find User
-    let user: any = null;
+    let user: User | null = null;
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       user = await prisma.user.findUnique({ where: { email } });
     } else {
-      user = mockDb.users.find((u: any) => u.email === email);
+      user = (mockDb.users as User[]).find((u: User) => u.email === email) || null;
     }
 
     // Secure generic message
@@ -92,7 +140,7 @@ export async function POST(req: NextRequest) {
       const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 mins
 
       if (useDb) {
-        const { prisma } = await import("@/lib/db");
+        const prisma = await getPrismaClient();
         // Invalidate old admin reset MFAs
         await prisma.mfaOtp.updateMany({
           where: { userId: user.id, used: false },
@@ -106,8 +154,8 @@ export async function POST(req: NextRequest) {
           data: { adminId: user.id, action: "PASSWORD_RESET_MFA_REQUESTED", details: "MFA challenge sent for password reset initiation", ipAddress: ip }
         });
       } else {
-        mockDb.mfaOtps.forEach((o: any) => {
-          if (o.userId === user.id && !o.used) o.used = true;
+        (mockDb.mfaOtps as MfaOtp[]).forEach((o: MfaOtp) => {
+          if (o.userId === user!.id && !o.used) o.used = true;
         });
         mockDb.mfaOtps.push({
           id: crypto.randomUUID(),
@@ -142,7 +190,7 @@ export async function POST(req: NextRequest) {
         });
       } else if (isSmsLive) {
         await sendSms({
-          phone: user.phone,
+          phone: user.phone!,
           message: `InvestorBridge Admin reset code: ${otpValue}. Expiry 5 mins.`
         });
       }
@@ -155,18 +203,18 @@ export async function POST(req: NextRequest) {
     }
 
     // STEP 2: Verify MFA and Then Generate Password Reset Link
-    let latestMfa: any = null;
+    let latestMfa: MfaOtp | null = null;
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       latestMfa = await prisma.mfaOtp.findFirst({
         where: { userId: user.id, used: false },
         orderBy: { createdAt: "desc" }
       });
     } else {
-      const mfas = mockDb.mfaOtps
-        .filter((o: any) => o.userId === user.id && !o.used)
-        .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      latestMfa = mfas[0];
+      const mfas = (mockDb.mfaOtps as MfaOtp[])
+        .filter((o: MfaOtp) => o.userId === user.id && !o.used)
+        .sort((a: MfaOtp, b: MfaOtp) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      latestMfa = mfas[0] || null;
     }
 
     if (!latestMfa || new Date() > new Date(latestMfa.expiresAt)) {
@@ -176,7 +224,7 @@ export async function POST(req: NextRequest) {
     const matches = await bcrypt.compare(mfaCode, latestMfa.otpHash);
     if (!matches) {
       if (useDb) {
-        const { prisma } = await import("@/lib/db");
+        const prisma = await getPrismaClient();
         await prisma.adminLog.create({
           data: { adminId: user.id, action: "PASSWORD_RESET_MFA_FAILED", details: "Failed MFA attempt during password reset request", ipAddress: ip }
         });
@@ -195,7 +243,7 @@ export async function POST(req: NextRequest) {
 
     // Invalidate used MFA OTP
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       await prisma.mfaOtp.update({ where: { id: latestMfa.id }, data: { used: true } });
     } else {
       latestMfa.used = true;
@@ -207,7 +255,7 @@ export async function POST(req: NextRequest) {
     const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
 
     if (useDb) {
-      const { prisma } = await import("@/lib/db");
+      const prisma = await getPrismaClient();
       await prisma.passwordResetToken.updateMany({
         where: { userId: user.id, used: false },
         data: { used: true }
@@ -219,7 +267,7 @@ export async function POST(req: NextRequest) {
         data: { adminId: user.id, action: "PASSWORD_RESET_LINK_SENT", details: "MFA passed. Reset link sent via email", ipAddress: ip }
       });
     } else {
-      mockDb.passwordResetTokens.forEach((t: any) => {
+      (mockDb.passwordResetTokens as PasswordResetToken[]).forEach((t: PasswordResetToken) => {
         if (t.userId === user.id) t.used = true;
       });
       mockDb.passwordResetTokens.push({
