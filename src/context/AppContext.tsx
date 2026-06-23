@@ -122,12 +122,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [savedArticleIds, setSavedArticleIds] = useState<string[]>([]);
   const [failedAttempts, setFailedAttempts] = useState<{ [email: string]: number }>({});
   const [lockouts, setLockouts] = useState<{ [email: string]: string }>({});
-  const [hydrated, setHydrated] = useState(false);
 
   // Initialize from LocalStorage or mock data - Only on client side
   useEffect(() => {
-    // Mark as hydrated to prevent mismatch
-    setHydrated(true);
     // 1. Initial mock articles
     const mockArticles = [
       {
@@ -455,9 +452,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         failedAttempts,
         lockouts
       }}
-      suppressHydrationWarning
     >
-      {hydrated ? children : <div suppressHydrationWarning />}
+      {children}
     </AppContext.Provider>
   );
 }

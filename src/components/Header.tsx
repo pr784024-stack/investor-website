@@ -120,7 +120,7 @@ export default function Header() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className=\"-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 active:bg-gray-100\"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 active:bg-gray-100"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             onTouchStart={() => setMobileMenuOpen(!mobileMenuOpen)}
             onTouchEnd={(e) => e.preventDefault()}
