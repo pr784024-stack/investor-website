@@ -244,15 +244,25 @@ export async function POST(req: NextRequest) {
         });
         await createAuditLog(user.id, "Google Account Created", ip, userAgent);
       } else {
+        const updatedData: any = {
+          name,
+          image: picture,
+          lastLoginAt: new Date(),
+          lastLoginIP: ip,
+          failedLoginAttempts: 0
+        };
+
+        if (!user.accountStatus) {
+          updatedData.accountStatus = "ACTIVE";
+        }
+
+        if (user.accountLockedUntil === undefined) {
+          updatedData.accountLockedUntil = null;
+        }
+
         await db.user.update({
           where: { id: user.id },
-          data: {
-            name,
-            image: picture,
-            lastLoginAt: new Date(),
-            lastLoginIP: ip,
-            failedLoginAttempts: 0
-          }
+          data: updatedData
         });
       }
 
