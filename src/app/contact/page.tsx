@@ -496,7 +496,7 @@ export default function ContactPage() {
                         />
                         <span className="text-sm text-[#5A6E85]">
                           I agree to InvestorBridge&apos;s{" "}
-                          <a href="/privacy" className="text-[#00B386] font-semibold hover:underline">
+                          <a href="/privacy-policy" className="text-[#00B386] font-semibold hover:underline">
                             Privacy Policy
                           </a>{" "}
                           and consent to being contacted via email.
