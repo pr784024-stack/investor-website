@@ -38,7 +38,7 @@ export default function TermsAndConditions() {
           <div className="space-y-6 text-xs text-gray-300 leading-relaxed scrollable-content max-h-[60vh] overflow-y-auto pr-4 scrollbar-thin">
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">1. About InvestorBridge Solutions</h2>
-              <p>InvestorBridge Solutions is engaged in investor education, portfolio diversification awareness, and financial planning consultation. We provide resources to enhance financial literacy and connect clients with general investment advisory guidelines.</p>
+              <p>InvestorBridge Solutions is engaged in investor education, portfolio diversification awareness and financial planning consultation. We provide resources to enhance financial literacy and connect clients with general investment advisory guidelines.</p>
             </section>
 
             <section>
@@ -48,7 +48,7 @@ export default function TermsAndConditions() {
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">3. Nature of Services</h2>
-              <p>Our platform compiles financial content, educational articles, and wealth compounding simulators. Any advisory or consultation services booked represent informational planning advice only.</p>
+              <p>Our platform compiles financial content, educational articles and wealth compounding simulators. Any advisory or consultation services booked represent informational planning advice only.</p>
             </section>
 
             <section>
@@ -63,17 +63,17 @@ export default function TermsAndConditions() {
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">6. User Responsibilities</h2>
-              <p>You agree to provide true, accurate, and current information when registering, logging in, or booking consultations. You are responsible for safeguarding your credentials.</p>
+              <p>You agree to provide true, accurate and current information when registering, logging in, or booking consultations. You are responsible for safeguarding your credentials.</p>
             </section>
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">7. Third-Party Services</h2>
-              <p>We may link to or integrate with third-party tools, payment gateways (like Razorpay), and authentication providers. We do not control or assume liability for third-party websites or services.</p>
+              <p>We may link to or integrate with third-party tools, payment gateways (like Razorpay) and authentication providers. We do not control or assume liability for third-party websites or services.</p>
             </section>
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">8. Intellectual Property</h2>
-              <p>All source code, platform designs, articles, branding marks, and content are the sole property of InvestorBridge Solutions. Unauthorized duplication or redistribution is strictly prohibited.</p>
+              <p>All source code, platform designs, articles, branding marks and content are the sole property of InvestorBridge Solutions. Unauthorized duplication or redistribution is strictly prohibited.</p>
             </section>
 
             <section>
@@ -83,7 +83,7 @@ export default function TermsAndConditions() {
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">10. Limitation of Liability</h2>
-              <p>To the fullest extent permitted by law, InvestorBridge Solutions, its directors, and employees will not be held liable for any indirect, special, incidental, or consequential damages resulting from your use of the website.</p>
+              <p>To the fullest extent permitted by law, InvestorBridge Solutions, its directors and employees will not be held liable for any indirect, special, incidental, or consequential damages resulting from your use of the website.</p>
             </section>
 
             <section>
@@ -103,7 +103,7 @@ export default function TermsAndConditions() {
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">14. Governing Law</h2>
-              <p>These terms and conditions are governed by and construed in accordance with the laws of India, and any disputes will be subject to the exclusive jurisdiction of the courts of Chandigarh, India.</p>
+              <p>These terms and conditions are governed by and construed in accordance with the laws of India and any disputes will be subject to the exclusive jurisdiction of the courts of Chandigarh, India.</p>
             </section>
 
             <section>

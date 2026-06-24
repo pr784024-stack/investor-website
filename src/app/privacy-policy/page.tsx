@@ -38,12 +38,12 @@ export default function PrivacyPolicy() {
           <div className="space-y-6 text-xs text-gray-300 leading-relaxed scrollable-content max-h-[60vh] overflow-y-auto pr-4 scrollbar-thin">
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">1. Information We Collect</h2>
-              <p>We collect personal information including full name, email address, mobile number, IP address, device specifications, and browser data to deliver authentication and personalized experiences.</p>
+              <p>We collect personal information including full name, email address, mobile number, IP address, device specifications and browser data to deliver authentication and personalized experiences.</p>
             </section>
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">2. How We Use Your Information</h2>
-              <p>Your details are used to verify accounts, validate transactions, enforce authentication protocols, and record session audits to guard against unauthorized platform logins.</p>
+              <p>Your details are used to verify accounts, validate transactions, enforce authentication protocols and record session audits to guard against unauthorized platform logins.</p>
             </section>
 
             <section>
@@ -53,12 +53,12 @@ export default function PrivacyPolicy() {
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">4. Data Security</h2>
-              <p>We maintain industry-standard security measures including HTTPS connections, salted password/token hashing, database authorization layers, and session expiration rules.</p>
+              <p>We maintain industry-standard security measures including HTTPS connections, salted password/token hashing, database authorization layers and session expiration rules.</p>
             </section>
 
             <section>
               <h2 className="text-sm font-bold text-[#00B386] mb-2">5. Cookies and Tracking Technologies</h2>
-              <p>We utilize HTTP-only, secure cookies with SameSite=Strict configuration to maintain active sessions, prevent cross-site request forgery, and log access details securely.</p>
+              <p>We utilize HTTP-only, secure cookies with SameSite=Strict configuration to maintain active sessions, prevent cross-site request forgery and log access details securely.</p>
             </section>
 
             <section>
