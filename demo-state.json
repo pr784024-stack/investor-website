@@ -69,7 +69,9 @@
       "isVerifiedPhone": false,
       "createdAt": "2026-06-23T18:51:10.437Z",
       "image": "https://lh3.googleusercontent.com/a/default-user=s96-c",
-      "failedLoginAttempts": 0
+      "failedLoginAttempts": 0,
+      "accountStatus": "ACTIVE",
+      "accountLockedUntil": null
     },
     {
       "id": "50dbdf05-c6ef-416e-9bee-5c5349124280",
@@ -447,6 +449,54 @@
   ],
   "auditLogs": [
     {
+      "id": "17be54d9-cc31-478b-acbb-8b701d470b48",
+      "userId": "801aac73-0434-441c-816c-ff6431cd65d9",
+      "action": "Google Login Success",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "createdAt": "2026-06-24T15:49:53.707Z"
+    },
+    {
+      "id": "c5d75186-ad40-4bbf-a614-0460119906e5",
+      "userId": "50dbdf05-c6ef-416e-9bee-5c5349124280",
+      "action": "Google Account Blocked",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "createdAt": "2026-06-24T15:47:39.185Z"
+    },
+    {
+      "id": "e1c97981-5ced-4ff8-ba09-acb1db525324",
+      "userId": "b759a2d3-28f4-4fc2-aef8-317a24ae8a6c",
+      "action": "Google Account Blocked",
+      "ipAddress": "::ffff:10.52.133.190",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "createdAt": "2026-06-24T15:46:44.468Z"
+    },
+    {
+      "id": "0a06195f-08a5-4e4e-b8a5-a1eeaa2f50c4",
+      "userId": "b759a2d3-28f4-4fc2-aef8-317a24ae8a6c",
+      "action": "Google Account Blocked",
+      "ipAddress": "::ffff:10.52.133.190",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "createdAt": "2026-06-24T15:43:01.092Z"
+    },
+    {
+      "id": "e7f6bb2a-a7ef-40b6-bca2-bb6b64ddb430",
+      "userId": "b759a2d3-28f4-4fc2-aef8-317a24ae8a6c",
+      "action": "Google Account Blocked",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "createdAt": "2026-06-24T15:42:30.029Z"
+    },
+    {
+      "id": "8ff3afd0-70d8-4190-940b-e591e8526dda",
+      "userId": "801aac73-0434-441c-816c-ff6431cd65d9",
+      "action": "Google Account Blocked",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "createdAt": "2026-06-24T15:42:01.595Z"
+    },
+    {
       "id": "69550803-9a0c-47c7-a6a6-3dfa9678f573",
       "userId": "801aac73-0434-441c-816c-ff6431cd65d9",
       "action": "Google Account Blocked",
@@ -479,5 +529,18 @@
       "createdAt": "2026-06-24T15:31:34.840Z"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "id": "35813189-526f-488f-bb73-222e13a6101e",
+      "userId": "801aac73-0434-441c-816c-ff6431cd65d9",
+      "deviceId": "10d7582fa080f89a99ad2bc67ea86264e045236c218985ab9bf4c0558f881187",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "refreshTokenHash": "$2b$10$EvBJR7aBrC/520NYr6IwVun.NOjll8Y.yNTImNUGRwcQGP5C4G2iu",
+      "isActive": true,
+      "createdAt": "2026-06-24T15:49:54.000Z",
+      "lastUsedAt": "2026-06-24T15:49:54.000Z",
+      "expiresAt": "2026-07-24T15:49:54.000Z"
+    }
+  ]
 }
