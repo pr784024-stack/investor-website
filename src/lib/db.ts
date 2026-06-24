@@ -176,6 +176,8 @@ const initialMockDb = {
   mfaOtps: [] as any[],
   passwordResetTokens: [] as any[],
   rateLimitLogs: [] as any[],
+  auditLogs: [] as any[],
+  sessions: [] as any[],
 };
 
 import fs from "fs";
@@ -227,6 +229,8 @@ if (!Array.isArray(rawMockDb.smsOtps)) rawMockDb.smsOtps = [];
 if (!Array.isArray(rawMockDb.mfaOtps)) rawMockDb.mfaOtps = [];
 if (!Array.isArray(rawMockDb.passwordResetTokens)) rawMockDb.passwordResetTokens = [];
 if (!Array.isArray(rawMockDb.rateLimitLogs)) rawMockDb.rateLimitLogs = [];
+if (!Array.isArray(rawMockDb.auditLogs)) rawMockDb.auditLogs = [];
+if (!Array.isArray(rawMockDb.sessions)) rawMockDb.sessions = [];
 
 if (process.env.NODE_ENV !== "production") {
   globalForMockDb.mockDb = rawMockDb;

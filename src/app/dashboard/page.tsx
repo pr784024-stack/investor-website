@@ -663,9 +663,21 @@ export default function UserDashboard() {
 
                   <div className="pt-2">
                     <button
-                      onClick={() => {
-                        setSuccess("Logged out of all other devices successfully.");
-                        addNotification("Security Alert", "All other sessions revoked.", "SECURITY");
+                      onClick={async () => {
+                        try {
+                          const res = await fetch("/api/auth/logout-all", { method: "POST" });
+                          if (res.ok) {
+                            setSuccess("Logged out of all other devices successfully.");
+                            addNotification("Security Alert", "All other sessions revoked.", "SECURITY");
+                            setTimeout(() => {
+                              window.location.href = "/login";
+                            }, 1000);
+                          } else {
+                            setError("Failed to logout all devices.");
+                          }
+                        } catch (e) {
+                          setError("Failed to logout all devices.");
+                        }
                       }}
                       className="rounded-full bg-red-50 hover:bg-red-100 text-red-600 px-5 py-2 text-xs font-bold transition-colors border border-red-200"
                     >
