@@ -308,8 +308,8 @@ export async function POST(req: NextRequest) {
           mfaEnabled: false,
           isVerifiedEmail: true,
           isVerifiedPhone: false,
-          accountStatus: "ACTIVE",
-          createdAt: new Date().toISOString()
+          accountStatus: "ACTIVE",          failedLoginAttempts: 0,
+          accountLockedUntil: null,          createdAt: new Date().toISOString()
         };
         mockDb.users.push(user);
         await createAuditLog(user.id, "Google Account Created", ip, userAgent);

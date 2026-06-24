@@ -181,6 +181,8 @@ export async function GET(req: NextRequest) {
           isVerifiedEmail: true,
           isVerifiedPhone: false,
           accountStatus: "ACTIVE",
+          failedLoginAttempts: 0,
+          accountLockedUntil: null,
           createdAt: new Date().toISOString()
         };
         mockDb.users.push(user);
