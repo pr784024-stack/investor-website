@@ -87,8 +87,8 @@ export default function Services() {
           </div>
 
           {/* B2B email and growth widget */}
-          <div className="mt-16 rounded-2xl bg-gradient-to-r from-[#0B1F3A] to-[#00B386] p-8 text-white shadow-lg relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div className="mt-16 rounded-2xl bg-linear-to-r from-[#0B1F3A] to-[#00B386] p-8 text-white shadow-lg relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] bg-size-[16px_16px]"></div>
             <div className="relative z-10 max-w-3xl flex flex-col gap-4">
               <h2 className="text-xl font-bold md:text-2xl">B2B Financial Growth & Email Marketing Programs</h2>
               <p className="text-xs text-gray-200 leading-relaxed">
