@@ -11,7 +11,7 @@ export default function About() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC]">
+      <main className="grow bg-[#F7F9FC]">
         {/* About Hero */}
         <section className="bg-white py-16 lg:py-24 border-b border-gray-100">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -61,15 +61,15 @@ export default function About() {
                 <h2 className="text-lg font-bold text-[#0B1F3A] mb-3">Core Values</h2>
                 <ul className="text-xs text-gray-500 space-y-2">
                   <li className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-[#00B386] flex-shrink-0" />
+                    <ShieldCheck className="h-4 w-4 text-[#00B386] shrink-0" />
                     <span><strong>Trust & Integrity:</strong> Objectivity first.</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-[#00B386] flex-shrink-0" />
+                    <ShieldCheck className="h-4 w-4 text-[#00B386] shrink-0" />
                     <span><strong>Education Driven:</strong> Awareness over sales.</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-[#00B386] flex-shrink-0" />
+                    <ShieldCheck className="h-4 w-4 text-[#00B386] shrink-0" />
                     <span><strong>Security Oriented:</strong> Complete input safety.</span>
                   </li>
                 </ul>

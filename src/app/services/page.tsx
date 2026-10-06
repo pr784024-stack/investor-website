@@ -35,7 +35,7 @@ export default function Services() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC] py-16">
+      <main className="grow bg-[#F7F9FC] py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Section Header */}
           <div className="max-w-3xl mb-12">

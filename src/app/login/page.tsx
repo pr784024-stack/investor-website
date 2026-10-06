@@ -165,7 +165,7 @@ export default function Login() {
           
           {error && (
             <div className="mb-4 rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 flex items-start gap-2">
-              <ShieldAlert className="h-4 w-4 flex-shrink-0 mt-0.5" />
+              <ShieldAlert className="h-4 w-4 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
@@ -252,7 +252,7 @@ export default function Login() {
           ) : (
             <form onSubmit={handleMfaSubmit} className="space-y-4">
               <div className="rounded-lg bg-gray-50 border border-gray-200 p-3 text-[10px] text-gray-600 leading-normal flex items-start gap-2">
-                <Lock className="h-4 w-4 text-[#00B386] flex-shrink-0 mt-0.5" />
+                <Lock className="h-4 w-4 text-[#00B386] shrink-0 mt-0.5" />
                 <div>
                   <strong>MFA Verification Required:</strong> Enter the verification code sent to your configured device (or check developer console in demo mode).
                 </div>

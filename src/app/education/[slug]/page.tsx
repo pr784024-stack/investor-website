@@ -27,7 +27,7 @@ export default function ArticleDetail() {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow bg-[#F7F9FC] flex flex-col items-center justify-center p-8 text-center">
+        <main className="grow bg-[#F7F9FC] flex flex-col items-center justify-center p-8 text-center">
           <h2 className="text-xl font-bold text-[#0B1F3A]">Article Not Found</h2>
           <p className="text-xs text-gray-500 mt-2">The article slug is invalid or the post has been unpublished.</p>
           <Link href="/education" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-[#00B386] hover:underline">
@@ -68,7 +68,7 @@ export default function ArticleDetail() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC] py-12">
+      <main className="grow bg-[#F7F9FC] py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Back button */}
           <div className="mb-6">
@@ -218,7 +218,7 @@ export default function ArticleDetail() {
                         <img
                           src={art.featuredImage}
                           alt={art.title}
-                          className="h-12 w-12 rounded object-cover flex-shrink-0 bg-gray-50"
+                          className="h-12 w-12 rounded object-cover shrink-0 bg-gray-50"
                         />
                         <div>
                           <h4 className="text-[11px] font-bold text-gray-700 leading-tight group-hover:text-[#00B386] transition-colors line-clamp-2">

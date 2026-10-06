@@ -188,7 +188,7 @@ export default function UserDashboard() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC] py-10">
+      <main className="grow bg-[#F7F9FC] py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
@@ -257,13 +257,13 @@ export default function UserDashboard() {
               {/* Errors/Success blocks */}
               {error && (
                 <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 flex items-start gap-2">
-                  <ShieldAlert className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                  <ShieldAlert className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{error}</span>
                 </div>
               )}
               {success && (
                 <div className="rounded-lg bg-green-50 border border-green-200 p-3 text-xs text-green-600 flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{success}</span>
                 </div>
               )}
@@ -481,7 +481,7 @@ export default function UserDashboard() {
                   {!showProfileOtp ? (
                     <form onSubmit={handleProfileUpdateSubmit} className="space-y-4 max-w-lg">
                       <div className="rounded-lg bg-gray-50 border border-gray-200 p-4 text-[10px] text-gray-600 leading-normal flex items-start gap-2">
-                        <Lock className="h-4.5 w-4.5 text-[#00B386] flex-shrink-0 mt-0.5" />
+                        <Lock className="h-4.5 w-4.5 text-[#00B386] shrink-0 mt-0.5" />
                         <div>
                           <strong>Verification Shield:</strong> To change critical account coordinates (Email, Mobile, or Password), you must enter your current password. Changing values requires OTP verification.
                         </div>
@@ -566,7 +566,7 @@ export default function UserDashboard() {
                   ) : (
                     <form onSubmit={handleVerifyProfileOtp} className="space-y-4 max-w-md">
                       <div className="rounded-lg bg-yellow-50 border border-yellow-200 p-4 text-[10px] text-yellow-800 leading-normal flex items-start gap-2">
-                        <ShieldAlert className="h-4.5 w-4.5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
+                        <ShieldAlert className="h-4.5 w-4.5 text-[#D4AF37] shrink-0 mt-0.5" />
                         <div>
                           <strong>2FA Verification Challenge:</strong> An OTP has been dispatched to authorize your profile settings update. Please retrieve it from your email logs, developer terminal, or check your phone if configured.
                         </div>
@@ -589,13 +589,13 @@ export default function UserDashboard() {
                         <button
                           type="button"
                           onClick={() => setShowProfileOtp(false)}
-                          className="flex-grow rounded-full border border-gray-200 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 text-center"
+                          className="grow rounded-full border border-gray-200 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 text-center"
                         >
                           Cancel
                         </button>
                         <button
                           type="submit"
-                          className="flex-grow rounded-full bg-[#00B386] hover:bg-[#0B1F3A] text-white py-2.5 text-xs font-bold transition-colors text-center"
+                          className="grow rounded-full bg-[#00B386] hover:bg-[#0B1F3A] text-white py-2.5 text-xs font-bold transition-colors text-center"
                         >
                           Confirm Changes
                         </button>

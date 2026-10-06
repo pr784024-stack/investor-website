@@ -251,9 +251,9 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="grow">
         {/* HERO BANNER */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#0B1F3A] via-[#0d2847] to-[#0B1F3A] py-20 lg:py-28">
+        <section className="relative overflow-hidden bg-linear-to-br from-[#0B1F3A] via-[#0d2847] to-[#0B1F3A] py-20 lg:py-28">
           <div className="absolute inset-0">
             <div className="absolute top-0 right-0 -mr-10 h-[400px] w-[400px] rounded-full bg-[#00B386]/10 blur-3xl" />
             <div className="absolute bottom-0 left-0 -ml-10 h-[300px] w-[300px] rounded-full bg-[#D4AF37]/10 blur-3xl" />
@@ -346,7 +346,7 @@ export default function ContactPage() {
                   >
                     {/* Security indicator */}
                     <div className="flex items-center gap-2 rounded-lg bg-[#00B386]/10 px-3 py-2 text-xs text-[#00B386] font-medium">
-                      <ShieldCheck className="h-4 w-4 flex-shrink-0" />
+                      <ShieldCheck className="h-4 w-4 shrink-0" />
                       Your data is encrypted and protected by TLS 1.3
                     </div>
 
@@ -554,7 +554,7 @@ export default function ContactPage() {
                       >
                         <span>{faq.q}</span>
                         <span
-                          className="ml-4 flex-shrink-0 text-[#00B386] transition-transform duration-200"
+                          className="ml-4 shrink-0 text-[#00B386] transition-transform duration-200"
                           style={{ transform: openFaq === i ? "rotate(45deg)" : "rotate(0deg)" }}
                         >
                           <ArrowRight className="h-4 w-4 rotate-90" />
@@ -647,7 +647,7 @@ export default function ContactPage() {
         {/* MAP PLACEHOLDER */}
         <section className="bg-white py-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="rounded-3xl overflow-hidden border border-[#E2E8F0] h-64 bg-gradient-to-br from-[#0B1F3A] to-[#1a3560] flex items-center justify-center">
+            <div className="rounded-3xl overflow-hidden border border-[#E2E8F0] h-64 bg-linear-to-br from-[#0B1F3A] to-[#1a3560] flex items-center justify-center">
               <div className="text-center text-white">
                 <MapPin className="h-12 w-12 mx-auto mb-3 text-[#00B386]" />
                 <p className="text-xl font-bold">Chandigarh, Punjab, India</p>

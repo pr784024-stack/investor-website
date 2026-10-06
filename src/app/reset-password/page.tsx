@@ -117,14 +117,14 @@ function ResetPasswordForm() {
       
       {error && (
         <div className="mb-4 rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 flex items-start gap-2">
-          <ShieldAlert className="h-4 w-4 flex-shrink-0 mt-0.5" />
+          <ShieldAlert className="h-4 w-4 shrink-0 mt-0.5" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
         <div className="mb-4 rounded-lg bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-700 flex items-start gap-2">
-          <ShieldCheck className="h-4 w-4 flex-shrink-0 mt-0.5" />
+          <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <p className="font-bold">Password Reset Successful</p>
             <p className="mt-0.5">{success}</p>

@@ -116,7 +116,7 @@ export default function Calculators() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow bg-[#F7F9FC] py-12">
+      <main className="grow bg-[#F7F9FC] py-12">
         ...
       </main>
       <Footer />
@@ -182,7 +182,7 @@ export default function Calculators() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F5F7FA]">
+      <main className="grow bg-[#F5F7FA]">
         <style dangerouslySetInnerHTML={{ __html: `
           @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap');
 

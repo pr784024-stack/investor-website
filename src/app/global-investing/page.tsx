@@ -67,7 +67,7 @@ export default function GlobalInvesting() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-white">
+      <main className="grow bg-white">
         {/* Page Hero */}
         <section className="bg-gradient-to-b from-[#F7F9FC] to-white py-16 lg:py-24 border-b border-gray-100">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center gap-6">
@@ -123,7 +123,7 @@ export default function GlobalInvesting() {
                   <ul className="mt-2 space-y-2.5">
                     {section.points.map((pt, pIdx) => (
                       <li key={pIdx} className="flex items-start gap-2 text-xs text-gray-400">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-[#00B386] flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-4.5 w-4.5 text-[#00B386] shrink-0 mt-0.5" />
                         <span className="text-gray-500 leading-normal">{pt}</span>
                       </li>
                     ))}

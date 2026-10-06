@@ -376,7 +376,7 @@ function BookConsultationContent() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC] py-12">
+      <main className="grow bg-[#F7F9FC] py-12">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           
           {/* Booking Progress Tracker */}
@@ -638,7 +638,7 @@ function BookConsultationContent() {
                         <span>Goods & Service Tax (18% GST Inclusive)</span>
                         <span>₹{(getServicePrice() - Math.round(getServicePrice() / 1.18)).toLocaleString("en-IN")}</span>
                       </div>
-                      <div className="flex justify-between text-xs font-extrabold text-[#0B1F3A] pt-4 border-t border-gray-200 text-sm">
+                      <div className="flex justify-between text-sm font-extrabold text-[#0B1F3A] pt-4 border-t border-gray-200">
                         <span>Total Due</span>
                         <span className="text-[#00B386]">₹{getServicePrice().toLocaleString("en-IN")}</span>
                       </div>

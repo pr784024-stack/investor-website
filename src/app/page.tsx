@@ -232,7 +232,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="grow">
         {/* SECTION 1: HERO */}
         <section className="relative overflow-hidden bg-gradient-to-b from-[#F7F9FC] via-white to-white py-20 lg:py-28">
           {/* Background shapes */}
@@ -356,7 +356,7 @@ export default function Home() {
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col items-center text-center p-3">
                   <div className="flex items-center gap-1.5 text-[#00B386] font-bold text-sm">
-                    <CheckCircle2 className="h-4.5 w-4.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4.5 w-4.5 shrink-0" />
                     <span>{item.label}</span>
                   </div>
                   <span className="text-[10px] text-gray-400 mt-0.5">{item.desc}</span>

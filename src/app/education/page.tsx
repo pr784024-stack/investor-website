@@ -80,7 +80,7 @@ export default function EducationHub() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow bg-[#F7F9FC] py-12">
+      <main className="grow bg-[#F7F9FC] py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">

@@ -105,7 +105,7 @@ export default function ForgotPassword() {
           
           {error && (
             <div className="mb-4 rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 flex items-start gap-2">
-              <ShieldAlert className="h-4 w-4 flex-shrink-0 mt-0.5" />
+              <ShieldAlert className="h-4 w-4 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
@@ -116,7 +116,7 @@ export default function ForgotPassword() {
                 ? "bg-blue-50 border border-blue-200 text-blue-700" 
                 : "bg-emerald-50 border border-emerald-200 text-emerald-700"
             }`}>
-              <ShieldCheck className="h-4 w-4 flex-shrink-0 mt-0.5" />
+              <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5" />
               <div>
                 {userType === "google" ? (
                   <>

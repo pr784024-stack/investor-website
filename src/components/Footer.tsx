@@ -103,7 +103,7 @@ export default function Footer() {
             </p>
             {subscribed ? (
               <div className="flex items-center gap-2 rounded-lg bg-green-950/50 border border-green-800 p-3 text-xs text-green-400">
-                <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+                <CheckCircle2 className="h-4 w-4 shrink-0" />
                 <span>Subscription successful! Thank you.</span>
               </div>
             ) : (

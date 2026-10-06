@@ -358,7 +358,7 @@ export default function AdminDashboard() {
     <div className="flex flex-col min-h-screen bg-[#F7F9FC]">
       <Header />
 
-      <main className="flex-grow py-10">
+      <main className="grow py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
@@ -430,14 +430,14 @@ export default function AdminDashboard() {
               
               {success && (
                 <div className="rounded-lg bg-green-50 border border-green-200 p-3 text-xs text-green-600 flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{success}</span>
                 </div>
               )}
 
               {error && (
                 <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 flex items-start gap-2">
-                  <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                  <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{error}</span>
                 </div>
               )}
@@ -473,21 +473,21 @@ export default function AdminDashboard() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-xs">
                           <span className="w-16 text-gray-500">HOT (80%+)</span>
-                          <div className="flex-grow bg-gray-100 rounded-full h-3 overflow-hidden">
+                          <div className="grow bg-gray-100 rounded-full h-3 overflow-hidden">
                             <div className="bg-[#D31538] h-full rounded-full" style={{ width: "65%" }}></div>
                           </div>
                           <span className="font-bold">65%</span>
                         </div>
                         <div className="flex items-center gap-2 text-xs">
                           <span className="w-16 text-gray-500">WARM (60%+)</span>
-                          <div className="flex-grow bg-gray-100 rounded-full h-3 overflow-hidden">
+                          <div className="grow bg-gray-100 rounded-full h-3 overflow-hidden">
                             <div className="bg-[#D4AF37] h-full rounded-full" style={{ width: "25%" }}></div>
                           </div>
                           <span className="font-bold">25%</span>
                         </div>
                         <div className="flex items-center gap-2 text-xs">
                           <span className="w-16 text-gray-500">COLD</span>
-                          <div className="flex-grow bg-gray-100 rounded-full h-3 overflow-hidden">
+                          <div className="grow bg-gray-100 rounded-full h-3 overflow-hidden">
                             <div className="bg-[#5A6E85] h-full rounded-full" style={{ width: "10%" }}></div>
                           </div>
                           <span className="font-bold">10%</span>
@@ -1290,19 +1290,19 @@ export default function AdminDashboard() {
 
                   {/* Active Sessions Summary */}
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-blue-50 to-blue-100 p-4">
                       <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Total Sessions</span>
                       <span className="text-lg font-bold text-blue-700 mt-1">{activeSessions.length}</span>
                     </div>
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-green-50 to-green-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-green-50 to-green-100 p-4">
                       <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Active Now</span>
                       <span className="text-lg font-bold text-green-700 mt-1">{activeSessions.filter(s => s.isActive).length}</span>
                     </div>
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-purple-50 to-purple-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-purple-50 to-purple-100 p-4">
                       <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Chrome</span>
                       <span className="text-lg font-bold text-purple-700 mt-1">{activeSessions.filter(s => s.browser?.includes("Chrome")).length}</span>
                     </div>
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-orange-50 to-orange-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-orange-50 to-orange-100 p-4">
                       <span className="text-[9px] text-gray-500 uppercase tracking-wider font-bold block">Mobile</span>
                       <span className="text-lg font-bold text-orange-700 mt-1">{activeSessions.filter(s => s.deviceType?.includes("Mobile")).length}</span>
                     </div>
@@ -1375,17 +1375,17 @@ export default function AdminDashboard() {
 
                   {/* Linking Statistics */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-purple-50 to-purple-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-purple-50 to-purple-100 p-4">
                       <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Email Only</span>
                       <span className="text-2xl font-bold text-purple-700 mt-2">{emailUsers.length}</span>
                       <span className="text-[8px] text-gray-500 mt-1 block">Can link Google</span>
                     </div>
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-blue-50 to-blue-100 p-4">
                       <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Google Only</span>
                       <span className="text-2xl font-bold text-blue-700 mt-2">{googleUsers.length}</span>
                       <span className="text-[8px] text-gray-500 mt-1 block">Can link Email</span>
                     </div>
-                    <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-orange-50 to-orange-100 p-4">
+                    <div className="rounded-xl border border-gray-100 bg-linear-to-br from-orange-50 to-orange-100 p-4">
                       <span className="text-[9px] text-gray-600 uppercase tracking-wider font-bold block">Dual Auth</span>
                       <span className="text-2xl font-bold text-orange-700 mt-2">0</span>
                       <span className="text-[8px] text-gray-500 mt-1 block">Email + Google</span>
